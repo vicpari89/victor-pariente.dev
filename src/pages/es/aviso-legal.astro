@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+
+const lang = 'es';
+const updated = 'Junio de 2026';
+---
+<BaseLayout title="Aviso legal" lang={lang}>
+  <div class="container--blog">
+    <PageHeader
+      eyebrow="Legal"
+      title="Aviso legal"
+      lead="Información sobre el titular de este sitio web."
+    />
+
+    <div class="prose">
+      <p class="legal-updated">Última actualización: {updated}</p>
+
+      <h2>1. Titular</h2>
+      <p>
+        Este sitio web es un proyecto personal y sin ánimo de lucro cuyo titular es
+        Víctor Pariente González. Puedes contactar a través del correo
+        <a href="mailto:victor.pariente.gonzalez@gmail.com">victor.pariente.gonzalez@gmail.com</a>.
+      </p>
+
+      <h2>2. Objeto</h2>
+      <p>
+        Este sitio funciona como portfolio personal y espacio donde comparto notas y
+        artículos. No se realiza ninguna actividad comercial ni se ofrecen productos o
+        servicios a través de él.
+      </p>
+
+      <h2>3. Propiedad intelectual</h2>
+      <p>
+        Los textos, el diseño y el código de este sitio son obra de su titular, salvo que
+        se indique lo contrario. Puedes citar o enlazar el contenido mencionando la fuente.
+        El código del sitio es abierto y está disponible en GitHub.
+      </p>
+
+      <h2>4. Responsabilidad</h2>
+      <p>
+        El contenido se publica con la mayor diligencia posible, pero puede contener
+        errores o quedar desactualizado. El titular no se responsabiliza del uso que se
+        haga de la información ni del contenido de sitios de terceros enlazados desde aquí.
+      </p>
+
+      <h2>5. Legislación aplicable</h2>
+      <p>
+        Este aviso legal se rige por la legislación española. Para cualquier cuestión
+        relacionada con tus datos personales, consulta la
+        <a href="/es/privacidad">política de privacidad</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-updated {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+</style>

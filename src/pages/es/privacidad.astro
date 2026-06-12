@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+
+const lang = 'es';
+const updated = 'Junio de 2026';
+---
+<BaseLayout title="Política de privacidad" lang={lang}>
+  <div class="container--blog">
+    <PageHeader
+      eyebrow="Legal"
+      title="Política de privacidad"
+      lead="Qué datos se tratan en este sitio y qué derechos tienes."
+    />
+
+    <div class="prose">
+      <p class="legal-updated">Última actualización: {updated}</p>
+
+      <h2>1. Responsable del tratamiento</h2>
+      <p>
+        El responsable es Víctor Pariente González. Puedes ejercer tus derechos o
+        plantear cualquier duda escribiendo a
+        <a href="mailto:victor.pariente.gonzalez@gmail.com">victor.pariente.gonzalez@gmail.com</a>.
+      </p>
+
+      <h2>2. Qué datos se tratan</h2>
+      <p>
+        Este sitio es estático y no contiene formularios. La única forma de facilitar
+        datos personales es si decides escribirme por correo electrónico, en cuyo caso
+        trataré tu dirección de email y la información que incluyas en tu mensaje.
+      </p>
+
+      <h2>3. Finalidad y base legal</h2>
+      <p>
+        Trato esos datos únicamente para leer y responder a tu mensaje. La base legal es
+        tu consentimiento al contactarme y mi interés legítimo en mantener la comunicación.
+      </p>
+
+      <h2>4. Conservación</h2>
+      <p>
+        Conservo los correos durante el tiempo necesario para atender tu consulta y, en su
+        caso, mientras pueda existir relación derivada de ese contacto. Después se eliminan.
+      </p>
+
+      <h2>5. Destinatarios</h2>
+      <p>
+        No cedo tus datos a terceros. El correo se gestiona a través del proveedor de email
+        que utilizo (Google), que actúa como encargado del tratamiento.
+      </p>
+
+      <h2>6. Cookies y almacenamiento</h2>
+      <p>
+        Este sitio no utiliza cookies de seguimiento ni herramientas de analítica. Solo
+        guarda en tu navegador (mediante <code>localStorage</code>) tu preferencia de tema
+        claro u oscuro. Es un almacenamiento técnico y necesario para esa función, exento
+        de consentimiento, y nunca sale de tu dispositivo.
+      </p>
+
+      <h2>7. Tus derechos</h2>
+      <p>
+        Puedes ejercer en cualquier momento tus derechos de acceso, rectificación,
+        supresión, oposición, limitación y portabilidad escribiendo al correo indicado
+        arriba. Si consideras que no se han atendido correctamente, puedes reclamar ante la
+        Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">aepd.es</a>).
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-updated {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+</style>

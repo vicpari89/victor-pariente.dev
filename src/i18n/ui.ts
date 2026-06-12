@@ -68,6 +68,10 @@ export const ui = {
 
     // Footer
     'footer.madeWith':     'Hecho con Astro. Código abierto en GitHub.',
+    'footer.legal':        'Aviso legal',
+    'footer.privacy':      'Privacidad',
+    'footer.legalHref':    '/es/aviso-legal',
+    'footer.privacyHref':  '/es/privacidad',
   },
 
   en: {
@@ -130,5 +134,9 @@ export const ui = {
 
     // Footer
     'footer.madeWith':     'Built with Astro. Open source on GitHub.',
+    'footer.legal':        'Legal notice',
+    'footer.privacy':      'Privacy',
+    'footer.legalHref':    '/en/legal-notice',
+    'footer.privacyHref':  '/en/privacy',
   },
 } as const;

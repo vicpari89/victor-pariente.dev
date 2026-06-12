@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+
+const lang = 'en';
+const updated = 'June 2026';
+---
+<BaseLayout title="Privacy policy" lang={lang}>
+  <div class="container--blog">
+    <PageHeader
+      eyebrow="Legal"
+      title="Privacy policy"
+      lead="What data this site handles and what rights you have."
+    />
+
+    <div class="prose">
+      <p class="legal-updated">Last updated: {updated}</p>
+
+      <h2>1. Data controller</h2>
+      <p>
+        The data controller is Víctor Pariente González. You can exercise your rights or ask
+        anything by writing to
+        <a href="mailto:victor.pariente.gonzalez@gmail.com">victor.pariente.gonzalez@gmail.com</a>.
+      </p>
+
+      <h2>2. What data is handled</h2>
+      <p>
+        This is a static site with no forms. The only way to share personal data is by
+        choosing to email me, in which case I handle your email address and whatever
+        information you include in your message.
+      </p>
+
+      <h2>3. Purpose and legal basis</h2>
+      <p>
+        I use that data solely to read and reply to your message. The legal basis is your
+        consent when contacting me and my legitimate interest in keeping the conversation.
+      </p>
+
+      <h2>4. Retention</h2>
+      <p>
+        I keep emails for as long as needed to deal with your query and any relationship
+        arising from it. After that, they are deleted.
+      </p>
+
+      <h2>5. Recipients</h2>
+      <p>
+        I don't share your data with third parties. Email is handled through my email
+        provider (Google), which acts as a data processor.
+      </p>
+
+      <h2>6. Cookies and storage</h2>
+      <p>
+        This site uses no tracking cookies and no analytics tools. It only stores your
+        light/dark theme preference in your browser (via <code>localStorage</code>). That's
+        strictly necessary technical storage for that feature, exempt from consent, and it
+        never leaves your device.
+      </p>
+
+      <h2>7. Your rights</h2>
+      <p>
+        You can exercise your rights of access, rectification, erasure, objection,
+        restriction and portability at any time by writing to the address above. If you feel
+        they haven't been handled properly, you can lodge a complaint with the Spanish Data
+        Protection Agency (<a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">aepd.es</a>).
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-updated {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+</style>

@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+
+const lang = 'en';
+const updated = 'June 2026';
+---
+<BaseLayout title="Legal notice" lang={lang}>
+  <div class="container--blog">
+    <PageHeader
+      eyebrow="Legal"
+      title="Legal notice"
+      lead="Information about the owner of this website."
+    />
+
+    <div class="prose">
+      <p class="legal-updated">Last updated: {updated}</p>
+
+      <h2>1. Owner</h2>
+      <p>
+        This website is a personal, non-commercial project owned by Víctor Pariente
+        González. You can get in touch at
+        <a href="mailto:victor.pariente.gonzalez@gmail.com">victor.pariente.gonzalez@gmail.com</a>.
+      </p>
+
+      <h2>2. Purpose</h2>
+      <p>
+        The site serves as a personal portfolio and a space where I share notes and
+        articles. No commercial activity takes place here, and no products or services are
+        offered through it.
+      </p>
+
+      <h2>3. Intellectual property</h2>
+      <p>
+        The text, design and code on this site are the work of its owner unless stated
+        otherwise. You're welcome to quote or link to the content as long as you credit the
+        source. The site's code is open source and available on GitHub.
+      </p>
+
+      <h2>4. Liability</h2>
+      <p>
+        Content is published as carefully as possible, but it may contain errors or become
+        outdated. The owner accepts no liability for how the information is used, nor for the
+        content of third-party sites linked from here.
+      </p>
+
+      <h2>5. Applicable law</h2>
+      <p>
+        This legal notice is governed by Spanish law. For anything related to your personal
+        data, see the <a href="/en/privacy">privacy policy</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal-updated {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+</style>
