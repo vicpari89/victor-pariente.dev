@@ -16,13 +16,22 @@ export function getLocalePath(lang: Lang, path: string): string {
   return `/${lang}${path}`;
 }
 
+// Routes whose slug differs between languages. Anything not listed here
+// keeps the same slug across locales (e.g. /es/about ↔ /en/about).
+const localizedRoutes: Array<Record<Lang, string>> = [
+  { es: '/aviso-legal', en: '/legal-notice' },
+  { es: '/privacidad', en: '/privacy' },
+];
+
 export function switchLang(url: URL, targetLang: Lang): string {
   const segments = url.pathname.split('/').filter(Boolean);
   const currentLang = segments[0] as Lang;
-  if (currentLang in ui) {
-    segments[0] = targetLang;
-  } else {
-    segments.unshift(targetLang);
-  }
-  return '/' + segments.join('/');
+  const hasLang = currentLang in ui;
+  const sourceLang: Lang = hasLang ? currentLang : defaultLang;
+  const rest = '/' + (hasLang ? segments.slice(1) : segments).join('/');
+
+  const match = localizedRoutes.find((route) => route[sourceLang] === rest);
+  const targetRest = match ? match[targetLang] : rest;
+
+  return targetRest === '/' ? `/${targetLang}` : `/${targetLang}${targetRest}`;
 }
