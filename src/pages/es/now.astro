@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+
+const lang = 'es';
+const updated = 'junio de 2026';
+
+const rows = [
+  {
+    title: 'Explorando',
+    items: [
+      'Agentes, skills y MCP — llevar un LLM a actuar como un compañero de equipo de verdad, no como un autocompletado',
+      'RAG: estrategias de chunking, recuperación y evaluación',
+      'LangGraph para orquestar flujos de agentes',
+    ],
+  },
+  {
+    title: 'Construyendo',
+    items: [
+      'Esta web',
+      'MCPs, agentes y skills para automatizar el día a día',
+      'Gemini Gems y NotebookLM para automatizar y facilitar procesos, hasta los del día a día',
+    ],
+  },
+  {
+    title: 'En lo que me centro',
+    items: [
+      'Aplicar lo que aprendo de IA a problemas reales de backend',
+      'Design Systems: fundamentos y patrones',
+    ],
+  },
+];
+---
+<BaseLayout title="Ahora" lang={lang}>
+  <div class="container">
+    <PageHeader
+      eyebrow="En directo"
+      title="Ahora"
+      lead="Qué estoy investigando, aprendiendo, construyendo."
+    />
+    <p class="now-updated">Actualizado {updated}</p>
+
+    <section class="e-rows">
+      {rows.map((row, i) => (
+        <article class="e-row">
+          <div class="e-row__head">
+            <span class="e-row__index">{String(i + 1).padStart(2, '0')}</span>
+            <h2 class="e-row__title">{row.title}</h2>
+          </div>
+          <ul class="now-list">
+            {row.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+      ))}
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .now-updated {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    margin-top: calc(var(--space-8) * -1);
+    padding-bottom: var(--space-10);
+    margin-bottom: var(--space-8);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .now-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .now-list li {
+    font-size: var(--text-base);
+    line-height: 1.55;
+    color: var(--color-text);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .now-list li:first-child {
+    padding-top: 0;
+  }
+
+  .now-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+</style>

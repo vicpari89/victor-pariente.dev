@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../../../components/layout/BaseLayout.astro';
+import PageHeader from '../../../components/layout/PageHeader.astro';
+import PostList from '../../../components/blog/PostList.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../../../i18n/utils';
+
+const lang = 'es';
+const t = useTranslations(lang);
+
+const posts = await getCollection('blog', (entry) => {
+  return entry.id.startsWith('es/') && !entry.data.draft;
+});
+
+const sorted = posts
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .map((post) => ({
+    ...post,
+    slug: post.id.replace(/^es\//, '').replace(/\.mdx?$/, ''),
+  }));
+---
+<BaseLayout title={t('blog.title')} description={t('blog.description')} lang={lang}>
+  <div class="container--blog">
+    <PageHeader
+      eyebrow="Notas y escritos"
+      title={t('blog.title')}
+      lead={t('blog.description')}
+    />
+    <PostList posts={sorted} lang={lang} />
+
+    <div class="previous-section">
+      <div class="previous-label">{t('blog.previous.title')}</div>
+      <p class="previous-note">{t('blog.previous.note')}</p>
+      <ul class="previous-list">
+        <li>
+          <a href="https://profile.es/blog/big-data-apache-hadoop-spark/" target="_blank" rel="noopener noreferrer" class="previous-card">
+            <div class="previous-card__meta">
+              <time>4 de abril, 2022</time>
+              <span class="previous-card__source">profile.es ↗</span>
+            </div>
+            <h2 class="previous-card__title">Big Data: análisis de datos masivos con Apache Hadoop y Spark</h2>
+            <p class="previous-card__description">Introducción a MapReduce y la comparativa entre Apache Hadoop y Apache Spark para el procesamiento distribuido de datos.</p>
+          </a>
+        </li>
+        <li>
+          <a href="https://profile.es/blog/web-scraping/" target="_blank" rel="noopener noreferrer" class="previous-card">
+            <div class="previous-card__meta">
+              <time>24 de enero, 2022</time>
+              <span class="previous-card__source">profile.es ↗</span>
+            </div>
+            <h2 class="previous-card__title">Web Scraping: extracción de datos de sitios web</h2>
+            <p class="previous-card__description">Técnicas de scraping web, sus aplicaciones prácticas y un ejemplo en Python con BeautifulSoup y Requests.</p>
+          </a>
+        </li>
+      </ul>
+      <a href="https://profile.es/blog/author/vpariente/" target="_blank" rel="noopener noreferrer" class="previous-more">
+        {t('blog.previous.more')}
+      </a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .previous-section {
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .previous-label {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .previous-note {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    margin-bottom: var(--space-6);
+    max-width: 60ch;
+  }
+
+  .previous-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (max-width: 560px) {
+    .previous-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .previous-card {
+    display: block;
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    background-color: var(--color-surface);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s;
+  }
+
+  .previous-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .previous-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    font-family: var(--font-display);
+    margin-bottom: var(--space-3);
+  }
+
+  .previous-card__source {
+    color: var(--color-accent);
+  }
+
+  .previous-card__title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
+  }
+
+  .previous-card__description {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    line-height: 1.6;
+    max-width: 60ch;
+  }
+
+  .previous-more {
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .previous-more:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,39 @@
+---
+interface Props {
+  label: string;
+  variant?: 'experience' | 'exploring' | 'default';
+}
+
+const { label, variant = 'default' } = Astro.props;
+---
+<span class={`tag tag--${variant}`}>{label}</span>
+
+<style>
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    padding: 0.2em 0.65em;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  .tag--experience {
+    border-color: var(--color-accent-dim);
+    background-color: var(--color-accent-dim);
+    color: var(--color-accent);
+  }
+
+  .tag--exploring {
+    border-color: var(--color-border);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+
+
+</style>

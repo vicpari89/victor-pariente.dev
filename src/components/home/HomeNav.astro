@@ -1,0 +1,280 @@
+---
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const articles = lang === 'es' ? [
+  {
+    title:   'Big Data: análisis de datos masivos con Apache Hadoop y Spark',
+    excerpt: 'Introducción a MapReduce y la comparativa entre Hadoop y Spark para procesamiento distribuido de datos a gran escala.',
+    date:    '4 abr 2022',
+    source:  'profile.es',
+    href:    'https://profile.es/blog/big-data-apache-hadoop-spark/',
+  },
+  {
+    title:   'Web Scraping: extracción de datos de sitios web',
+    excerpt: 'Técnicas de scraping web, sus aplicaciones prácticas y un ejemplo en Python con BeautifulSoup y Requests.',
+    date:    '24 ene 2022',
+    source:  'profile.es',
+    href:    'https://profile.es/blog/web-scraping/',
+  },
+] : [
+  {
+    title:   'Big Data: massive data analysis with Apache Hadoop and Spark',
+    excerpt: 'Introduction to MapReduce and a comparison between Hadoop and Spark for large-scale distributed data processing.',
+    date:    'Apr 4, 2022',
+    source:  'profile.es',
+    href:    'https://profile.es/blog/big-data-apache-hadoop-spark/',
+  },
+  {
+    title:   'Web Scraping: extracting data from websites',
+    excerpt: 'Web scraping techniques, practical applications, and a Python example with BeautifulSoup and Requests.',
+    date:    'Jan 24, 2022',
+    source:  'profile.es',
+    href:    'https://profile.es/blog/web-scraping/',
+  },
+];
+
+const sections = lang === 'es' ? [
+  { title: 'Sobre mí',   desc: 'De dónde vengo, qué construyo y qué se.',         href: `/${lang}/about`    },
+  { title: 'Ahora',      desc: 'Qué estoy aprendiendo y construyendo en este momento.',               href: `/${lang}/now`      },
+  { title: 'Blog',       desc: 'Artículos sobre ingeniería de software, IA y lo que voy aprendiendo.',                href: `/${lang}/blog`     },
+  { title: 'Proyectos',  desc: 'Experimentos y proyectos que construyo en mi tiempo libre.',              href: `/${lang}/projects` },
+] : [
+  { title: 'About',      desc: 'Where I come from, what I build, and what I know.',                    href: `/${lang}/about`    },
+  { title: 'Now',        desc: 'What I\'m currently learning and building right now.',                 href: `/${lang}/now`      },
+  { title: 'Blog',       desc: 'Articles on software engineering, AI, and what I\'m learning along the way.', href: `/${lang}/blog`     },
+  { title: 'Projects',   desc: 'Experiments and projects I build in my spare time.',                   href: `/${lang}/projects` },
+];
+
+const recentLabel  = lang === 'es' ? 'Últimos artículos' : 'Latest articles';
+const viewMoreText = lang === 'es' ? 'Ver todos en Profile.es →' : 'View all on Profile.es →';
+const viewMoreHref = 'https://profile.es/blog/author/vpariente/';
+const exploreLabel = lang === 'es' ? 'Explora el sitio' : 'Explore';
+---
+
+<!-- Recent writing — full-width band -->
+<section class="home-band">
+  <div class="home-band__inner">
+    <div class="home-band__header">
+      <h2 class="home-band__title">{recentLabel}</h2>
+      <a href={viewMoreHref} target="_blank" rel="noopener noreferrer" class="home-band__more">{viewMoreText}</a>
+    </div>
+    <div class="home-band__cards">
+      {articles.map((a) => (
+        <a href={a.href} target="_blank" rel="noopener noreferrer" class="home-card">
+          <div class="home-card__meta">
+            <span class="home-card__date">{a.date}</span>
+            <span class="home-card__sep" aria-hidden="true">·</span>
+            <span class="home-card__source">{a.source}</span>
+          </div>
+          <h3 class="home-card__title">{a.title}</h3>
+          <p class="home-card__excerpt">{a.excerpt}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Site navigation -->
+<section class="home-explore">
+  <div class="home-explore__inner">
+    <h2 class="home-explore__heading">{exploreLabel}</h2>
+    <div class="home-explore__list">
+      {sections.map((s) => (
+        <a href={s.href} class="home-explore__item">
+          <div class="home-explore__item-text">
+            <strong class="home-explore__item-title">{s.title}</strong>
+            <span class="home-explore__item-desc">{s.desc}</span>
+          </div>
+          <span class="home-explore__arrow" aria-hidden="true">→</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ── Recent posts band ── */
+  .home-band {
+    background: var(--color-surface);
+    padding: var(--space-16) var(--space-6);
+  }
+
+  .home-band__inner {
+    max-width: var(--max-w-layout);
+    margin-inline: auto;
+  }
+
+  .home-band__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .home-band__title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .home-band__more {
+    font-size: var(--text-sm);
+    color: var(--color-link);
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .home-band__more:hover {
+    text-decoration: underline;
+  }
+
+  .home-band__cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  /* ── Article card ── */
+  .home-card {
+    background: var(--color-bg);
+    border-radius: var(--radius-card);
+    padding: var(--space-8);
+    box-shadow: 0 4px 10px rgba(187, 225, 250, 0.25);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    transition: box-shadow 0.15s;
+  }
+
+  .home-card:hover {
+    box-shadow: 0 6px 20px rgba(187, 225, 250, 0.45);
+    text-decoration: none;
+  }
+
+  .home-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .home-card__sep {
+    opacity: 0.5;
+  }
+
+  .home-card__source {
+    color: var(--color-accent);
+  }
+
+  .home-card__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.3;
+  }
+
+  .home-card__excerpt {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    line-height: 1.65;
+    max-width: none;
+  }
+
+  /* ── Explore section ── */
+  .home-explore {
+    padding: var(--space-16) var(--space-6);
+  }
+
+  .home-explore__inner {
+    max-width: var(--max-w-layout);
+    margin-inline: auto;
+  }
+
+  .home-explore__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+  }
+
+  .home-explore__list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .home-explore__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.15s;
+  }
+
+  .home-explore__item:hover {
+    text-decoration: none;
+  }
+
+  .home-explore__item:hover .home-explore__item-title {
+    color: var(--color-accent);
+  }
+
+  .home-explore__item-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .home-explore__item-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text);
+    transition: color 0.15s;
+  }
+
+  .home-explore__item-desc {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .home-explore__arrow {
+    font-size: var(--text-xl);
+    color: var(--color-accent);
+    flex-shrink: 0;
+    transition: transform 0.15s;
+  }
+
+  .home-explore__item:hover .home-explore__arrow {
+    transform: translateX(4px);
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 640px) {
+    .home-band__cards {
+      grid-template-columns: 1fr;
+    }
+
+    .home-band__header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

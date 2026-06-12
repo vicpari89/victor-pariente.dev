@@ -1,0 +1,89 @@
+---
+import type { Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  slug: string;
+  tags?: string[];
+  category?: string;
+  lang: Lang;
+}
+
+const { title, description, pubDate, slug, category, lang } = Astro.props;
+const t = useTranslations(lang);
+
+const dateStr = pubDate.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+<article class="post-card">
+  <a href={`/${lang}/blog/${slug}`} class="post-card__link">
+    <div class="post-card__meta">
+      <time datetime={pubDate.toISOString()}>{dateStr}</time>
+      {category && (
+        <>
+          <span class="post-card__sep" aria-hidden="true">·</span>
+          <span class="post-card__category">{category}</span>
+        </>
+      )}
+    </div>
+    <h2 class="post-card__title">{title}</h2>
+    <p class="post-card__description">{description}</p>
+  </a>
+</article>
+
+<style>
+  .post-card {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .post-card__link {
+    display: block;
+    padding: var(--space-8) 0;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .post-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .post-card__sep {
+    opacity: 0.5;
+  }
+
+  .post-card__category {
+    color: var(--color-accent);
+  }
+
+  .post-card__title {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+    line-height: 1.2;
+    transition: color 0.15s;
+  }
+
+  .post-card__link:hover .post-card__title {
+    color: var(--color-accent);
+  }
+
+  .post-card__description {
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    line-height: 1.65;
+    max-width: 60ch;
+  }
+</style>

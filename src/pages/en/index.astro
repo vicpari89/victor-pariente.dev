@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Hero from '../../components/home/Hero.astro';
+import HomeNav from '../../components/home/HomeNav.astro';
+
+const lang = 'en';
+---
+<BaseLayout
+  title="Home"
+  description="Backend engineer with 10+ years of experience. Learning AI in public."
+  lang={lang}
+>
+  <div class="container">
+    <Hero lang={lang} />
+  </div>
+  <HomeNav lang={lang} />
+</BaseLayout>

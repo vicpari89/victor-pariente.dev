@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const lang = 'en';
+const t = useTranslations(lang);
+---
+<BaseLayout title={t('contact.title')} lang={lang}>
+  <div class="container--blog">
+    <PageHeader
+      eyebrow="Get in touch"
+      title={t('contact.title')}
+      lead={t('contact.body')}
+    />
+
+    <ul class="contact-links">
+      <li>
+        <a href="https://linkedin.com/in/victor-pariente" target="_blank" rel="noopener noreferrer" class="contact-link card">
+          <span class="contact-link__icon" aria-hidden="true">in</span>
+          <span class="contact-link__text">
+            <strong>{t('contact.linkedin')}</strong>
+            <span class="contact-link__url">linkedin.com/in/victor-pariente</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/vicpari89" target="_blank" rel="noopener noreferrer" class="contact-link card">
+          <span class="contact-link__icon" aria-hidden="true">gh</span>
+          <span class="contact-link__text">
+            <strong>{t('contact.github')}</strong>
+            <span class="contact-link__url">github.com/vicpari89</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="mailto:victor.pariente.gonzalez@gmail.com" class="contact-link card">
+          <span class="contact-link__icon" aria-hidden="true">@</span>
+          <span class="contact-link__text">
+            <strong>{t('contact.email')}</strong>
+            <span class="contact-link__url">victor.pariente.gonzalez@gmail.com</span>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .contact-links {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  .contact-links li:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    padding: var(--space-5) var(--space-6);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: border-color 0.15s, transform 0.15s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  .contact-link__icon {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-accent);
+    width: 40px;
+    height: 40px;
+    background: var(--color-accent-dim);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-link__text {
+    min-width: 0;
+  }
+
+  .contact-link strong {
+    display: block;
+    font-size: var(--text-base);
+    font-weight: 600;
+  }
+
+  .contact-link__url {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    font-family: var(--font-display);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 560px) {
+    .contact-links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

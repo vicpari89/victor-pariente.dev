@@ -1,0 +1,165 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Tag from '../ui/Tag.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+interface SkillCategory {
+  label: string;
+  items: string[];
+}
+
+interface Language {
+  name: string;
+  level: string;
+  /** proficiency out of 5, used for the meter */
+  dots: number;
+}
+
+const categories: SkillCategory[] = lang === 'es' ? [
+  { label: 'Lenguajes y frameworks', items: ['Java', 'Spring', 'Spring Boot', 'SQL', 'Python'] },
+  { label: 'Infraestructura y cloud', items: ['Docker', 'Kubernetes', 'Kafka', 'Google Cloud', 'Jenkins', 'Datadog'] },
+  { label: 'Datos y búsqueda', items: ['BigQuery', 'ML', 'Elasticsearch'] },
+  { label: 'Ingeniería de software', items: ['APIs REST', 'GraphQL', 'Microservicios', 'Diseño de sistemas', 'Agile', 'Code review', 'Mentoring'] },
+  { label: 'IA y herramientas', items: ['GitHub Copilot', 'Gemini', 'Gemini Gems', 'NotebookLM', 'Claude Code', 'Agentes', 'MCP', 'LLMs'] },
+] : [
+  { label: 'Languages & frameworks', items: ['Java', 'Spring', 'Spring Boot', 'SQL', 'Python'] },
+  { label: 'Infrastructure & cloud', items: ['Docker', 'Kubernetes', 'Kafka', 'Google Cloud', 'Jenkins', 'Datadog'] },
+  { label: 'Data & search', items: ['BigQuery', 'ML', 'Elasticsearch'] },
+  { label: 'Software engineering', items: ['REST APIs', 'GraphQL', 'Microservices', 'System design', 'Agile', 'Code review', 'Mentoring'] },
+  { label: 'AI & tooling', items: ['GitHub Copilot', 'Gemini', 'Gemini Gems', 'NotebookLM', 'Claude Code', 'Agents', 'MCP', 'LLMs'] },
+];
+
+const languagesData: Language[] = lang === 'es' ? [
+  { name: 'Español', level: 'Nativo', dots: 5 },
+  { name: 'Inglés', level: 'Competencia profesional', dots: 4 },
+] : [
+  { name: 'Spanish', level: 'Native', dots: 5 },
+  { name: 'English', level: 'Professional working proficiency', dots: 4 },
+];
+
+const heading = lang === 'es'
+  ? { skills: 'Conocimiento técnico', languages: 'Idiomas' }
+  : { skills: 'Technical knowledge', languages: 'Languages' };
+---
+<section class="skills">
+  <div class="skills__block">
+    <h2 class="section-label">{heading.skills}</h2>
+    <div class="skills__grid">
+      {categories.map((cat) => (
+        <div class="skills__category">
+          <span class="skills__cat-label">{cat.label}</span>
+          <div class="skills__chips">
+            {cat.items.map((item) => <Tag label={item} variant="exploring" />)}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="skills__block">
+    <h2 class="skills__heading">{heading.languages}</h2>
+    <div class="skills__languages">
+      {languagesData.map((l) => (
+        <div class="lang">
+          <div class="lang__head">
+            <span class="lang__name">{l.name}</span>
+            <span class="lang__level">{l.level}</span>
+          </div>
+          <div class="lang__meter" role="presentation">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <span class={`lang__dot ${n <= l.dots ? 'lang__dot--on' : ''}`} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    margin: 0 0 var(--space-16);
+  }
+
+  /* ── Technical knowledge ── */
+  .skills__grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .skills__cat-label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+  }
+
+  .skills__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  /* ── Languages ── */
+  .skills__languages {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .lang__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+
+  .lang__name {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .lang__level {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    text-align: right;
+  }
+
+  .lang__meter {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .lang__dot {
+    width: 100%;
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background: var(--color-border);
+  }
+
+  .lang__dot--on {
+    background: var(--color-accent);
+  }
+
+  @media (max-width: 640px) {
+    .skills__grid,
+    .skills__languages {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+  }
+</style>

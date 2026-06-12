@@ -1,0 +1,133 @@
+---
+import ThemeToggle from '../ui/ThemeToggle.astro';
+import LangToggle from '../ui/LangToggle.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const navLinks = [
+  { key: 'nav.about',    path: `/${lang}/about`    },
+  { key: 'nav.now',      path: `/${lang}/now`       },
+  { key: 'nav.blog',     path: `/${lang}/blog`      },
+  { key: 'nav.projects', path: `/${lang}/projects`  },
+  { key: 'nav.contact',  path: `/${lang}/contact`   },
+] as const;
+
+const currentPath = Astro.url.pathname;
+---
+<header class="header">
+  <div class="container">
+    <nav class="header__nav">
+      <a href={`/${lang}/`} class="header__logo">
+        victor-pariente<span class="header__logo-dot">.</span>dev
+      </a>
+
+      <ul class="header__links">
+        {navLinks.map(({ key, path }) => (
+          <li>
+            <a
+              href={path}
+              class={`header__link ${currentPath === path || currentPath.startsWith(path + '/') ? 'header__link--active' : ''}`}
+            >
+              {t(key)}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="header__controls">
+        <LangToggle />
+        <ThemeToggle />
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    gap: var(--space-8);
+  }
+
+  .header__logo {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-text);
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .header__logo:hover {
+    text-decoration: none;
+  }
+
+  .header__logo-dot {
+    color: var(--color-accent);
+  }
+
+  .header__links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    list-style: none;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .header__link {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--color-text);
+    padding: var(--space-2) var(--space-4);
+    text-decoration: none;
+    transition: color 0.15s;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .header__link:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .header__link--active {
+    color: var(--color-accent);
+  }
+
+  .header__link--active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: var(--space-4);
+    right: var(--space-4);
+    height: 2px;
+    background: var(--color-accent);
+  }
+
+  .header__controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 720px) {
+    .header__links {
+      display: none;
+    }
+  }
+</style>

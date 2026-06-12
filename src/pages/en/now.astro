@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import PageHeader from '../../components/layout/PageHeader.astro';
+
+const lang = 'en';
+const updated = 'June 2026';
+
+const rows = [
+  {
+    title: 'Exploring',
+    items: [
+      'Agents, skills and MCP — pushing an LLM to act as a real teammate, not autocomplete',
+      'RAG: chunking strategies, retrieval and evaluation',
+      'LangGraph for orchestrating agent workflows',
+    ],
+  },
+  {
+    title: 'Building',
+    items: [
+      'This website',
+      'MCPs, agents and skills to automate everyday workflows',
+      'Gemini Gems and NotebookLM to automate and simplify processes, even everyday ones',
+    ],
+  },
+  {
+    title: 'Focusing on',
+    items: [
+      'Applying what I learn about AI to real backend problems',
+      'Design Systems: fundamentals and patterns',
+    ],
+  },
+];
+---
+<BaseLayout title="Now" lang={lang}>
+  <div class="container">
+    <PageHeader
+      eyebrow="Live"
+      title="Now"
+      lead="What I'm researching, learning and building."
+    />
+    <p class="now-updated">Updated {updated}</p>
+
+    <section class="e-rows">
+      {rows.map((row, i) => (
+        <article class="e-row">
+          <div class="e-row__head">
+            <span class="e-row__index">{String(i + 1).padStart(2, '0')}</span>
+            <h2 class="e-row__title">{row.title}</h2>
+          </div>
+          <ul class="now-list">
+            {row.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+      ))}
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .now-updated {
+    font-family: var(--font-display);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    margin-top: calc(var(--space-8) * -1);
+    padding-bottom: var(--space-10);
+    margin-bottom: var(--space-8);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .now-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .now-list li {
+    font-size: var(--text-base);
+    line-height: 1.55;
+    color: var(--color-text);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .now-list li:first-child {
+    padding-top: 0;
+  }
+
+  .now-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+</style>

@@ -1,0 +1,172 @@
+---
+import type { Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const greeting   = lang === 'es' ? 'Hola, soy Víctor Pariente,' : "Hi, I'm Víctor Pariente,";
+const role       = lang === 'es' ? 'Ingeniero de Software.' : 'Software Engineer.';
+const statusText = 'Senior Software Engineer · eDreams ODIGEO';
+---
+<section class="hero">
+  <div class="hero__text">
+    <h1 class="hero__headline">
+      <span class="hero__greeting">{greeting}</span>
+      <span class="hero__role">{role}</span>
+    </h1>
+
+    <div class="accent-rule" aria-hidden="true"></div>
+
+    <p class="hero__bio">{t('home.subtitle')}</p>
+
+    <div class="hero__status">
+      <span class="hero__status-dot" aria-hidden="true"></span>
+      <span>{statusText}</span>
+      <span class="hero__status-sep" aria-hidden="true">·</span>
+      <a href="https://linkedin.com/in/victor-pariente" target="_blank" rel="noopener noreferrer" class="hero__status-link">LinkedIn ↗</a>
+    </div>
+  </div>
+
+  <div class="hero__visual">
+    <div class="hero__ellipse" aria-hidden="true"></div>
+    <img class="hero__avatar" src="/avatar.jpg" alt="Víctor Pariente" width="243" height="243" />
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 270px;
+    align-items: center;
+    gap: var(--space-12);
+    padding: var(--space-20) 0 var(--space-16);
+  }
+
+  /* ── Left column ── */
+  .hero__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .hero__headline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--color-text);
+    margin-bottom: 0;
+  }
+
+  .hero__greeting {
+    display: block;
+  }
+
+  .hero__role {
+    display: block;
+    color: var(--color-accent);
+  }
+
+  .hero__bio {
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    line-height: 1.75;
+    max-width: 52ch;
+    margin-bottom: 0;
+  }
+
+  .hero__status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .hero__status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .hero__status-sep {
+    opacity: 0.5;
+  }
+
+  .hero__status-link {
+    color: var(--color-link);
+    text-decoration: none;
+  }
+
+  .hero__status-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Right column (avatar) ── */
+  .hero__visual {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    flex-shrink: 0;
+    justify-self: center;
+  }
+
+  .hero__ellipse {
+    position: absolute;
+    width: 243px;
+    height: 243px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+    opacity: 0.9;
+    bottom: 0;
+    right: 0;
+  }
+
+  .hero__avatar {
+    position: absolute;
+    width: 243px;
+    height: 243px;
+    border-radius: 50%;
+    background: var(--color-surface);
+    border: 3px solid var(--color-bg);
+    object-fit: cover;
+    top: 0;
+    left: 0;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 680px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding: var(--space-12) 0 var(--space-10);
+      gap: var(--space-10);
+    }
+
+    .hero__visual {
+      order: -1;
+      width: 180px;
+      height: 192px;
+    }
+
+    .hero__ellipse {
+      width: 180px;
+      height: 180px;
+    }
+
+    .hero__avatar {
+      width: 180px;
+      height: 180px;
+      font-size: 3rem;
+    }
+  }
+</style>

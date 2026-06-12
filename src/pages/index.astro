@@ -1,0 +1,8 @@
+---
+// Redirect to /es/ by default; client-side respects browser language
+---
+<meta http-equiv="refresh" content="0;url=/es/" />
+<script>
+  const lang = navigator.language.startsWith('en') ? 'en' : 'es';
+  window.location.replace(`/${lang}/`);
+</script>

@@ -1,0 +1,55 @@
+---
+import PostCard from './PostCard.astro';
+import type { Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  posts: Array<{
+    slug: string;
+    data: {
+      title: string;
+      description: string;
+      pubDate: Date;
+      tags: string[];
+      category: string;
+    };
+  }>;
+  lang: Lang;
+}
+
+const { posts, lang } = Astro.props;
+const t = useTranslations(lang);
+---
+{posts.length === 0 ? (
+  <p class="empty">{t('blog.empty')}</p>
+) : (
+  <ul class="post-list">
+    {posts.map((post) => (
+      <li>
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+          slug={post.slug}
+          tags={post.data.tags}
+          category={post.data.category}
+          lang={lang}
+        />
+      </li>
+    ))}
+  </ul>
+)}
+
+<style>
+  .post-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .empty {
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    padding: var(--space-8) 0;
+  }
+</style>
