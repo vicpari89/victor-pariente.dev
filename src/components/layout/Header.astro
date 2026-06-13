@@ -7,6 +7,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const navLinks = [
+  { key: 'nav.home',     path: `/${lang}/`,               exact: true },
   { key: 'nav.about',    path: getRoute('about', lang)    },
   { key: 'nav.now',      path: getRoute('now', lang)      },
   { key: 'nav.blog',     path: getRoute('blog', lang)     },
@@ -15,6 +16,13 @@ const navLinks = [
 ] as const;
 
 const currentPath = Astro.url.pathname;
+
+const stripSlash = (p: string) => p.replace(/\/+$/, '') || '/';
+function isActive(path: string, exact = false): boolean {
+  const cur = stripSlash(currentPath);
+  const target = stripSlash(path);
+  return exact ? cur === target : cur === target || cur.startsWith(target + '/');
+}
 ---
 <header class="header">
   <div class="container">
@@ -24,11 +32,11 @@ const currentPath = Astro.url.pathname;
       </a>
 
       <ul class="header__links">
-        {navLinks.map(({ key, path }) => (
+        {navLinks.map(({ key, path, exact }) => (
           <li>
             <a
               href={path}
-              class={`header__link ${currentPath === path || currentPath.startsWith(path + '/') ? 'header__link--active' : ''}`}
+              class={`header__link ${isActive(path, exact) ? 'header__link--active' : ''}`}
             >
               {t(key)}
             </a>
@@ -61,11 +69,11 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <ul id="mobile-nav" class="header__mobile-nav">
-      {navLinks.map(({ key, path }) => (
+      {navLinks.map(({ key, path, exact }) => (
         <li>
           <a
             href={path}
-            class={`header__link ${currentPath === path || currentPath.startsWith(path + '/') ? 'header__link--active' : ''}`}
+            class={`header__link ${isActive(path, exact) ? 'header__link--active' : ''}`}
           >
             {t(key)}
           </a>
