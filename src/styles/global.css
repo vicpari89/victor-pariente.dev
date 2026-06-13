@@ -1,7 +1,7 @@
 @import './tokens.css';
 
-/* ─── FONTS ─────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap');
+/* Fonts are loaded via <link rel="preconnect"> + stylesheet in BaseLayout
+   to avoid the render-blocking @import that was here. */
 
 /* ─── RESET ──────────────────────────────────────────────────────────── */
 *, *::before, *::after {
@@ -35,12 +35,39 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
+}
+
+/* ─── KEYBOARD FOCUS ─────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ─── SKIP LINK ──────────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -3rem;
+  z-index: 200;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+  text-decoration: none;
 }
 
 p {
@@ -153,7 +180,7 @@ pre code {
   font-size: var(--text-3xl);
   font-weight: 900;
   line-height: 1;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   margin-bottom: var(--space-2);
 }
 
@@ -207,7 +234,7 @@ pre code {
   font-size: var(--text-sm);
   font-weight: 700;
   letter-spacing: 0.05em;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 
 .e-row__title {
@@ -251,7 +278,7 @@ pre code {
   font-size: 3.75rem;
   font-weight: 900;
   letter-spacing: -0.02em;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 
 .avatar-frame__img {
@@ -317,7 +344,16 @@ pre code {
   margin: var(--space-10) 0;
 }
 
-@keyframes pulse-accent {
-  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 45%, transparent); }
-  50%       { box-shadow: 0 0 0 7px color-mix(in srgb, var(--color-accent) 0%, transparent); }
+/* ─── REDUCED MOTION ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

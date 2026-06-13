@@ -2,8 +2,10 @@
 import BaseLayout from '../../components/layout/BaseLayout.astro';
 import Timeline from '../../components/about/Timeline.astro';
 import Skills from '../../components/about/Skills.astro';
+import { useTranslations } from '../../i18n/utils';
 
 const lang = 'en';
+const t = useTranslations(lang);
 
 const stats = [
   { num: '10+',        label: 'years building software' },
@@ -29,7 +31,7 @@ const specialties = [
   },
 ];
 ---
-<BaseLayout title="About" lang={lang}>
+<BaseLayout title="About" description={t('meta.desc.about')} lang={lang}>
   <div class="container">
     <!-- ── Hero ── -->
     <section class="about-hero">
@@ -162,7 +164,7 @@ const specialties = [
     font-size: var(--text-sm);
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   .spec-card__title {

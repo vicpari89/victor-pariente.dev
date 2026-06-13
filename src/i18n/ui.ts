@@ -39,9 +39,6 @@ export const ui = {
     // Now
     'now.title':           'Ahora',
     'now.updated':         'Actualizado',
-    'now.learning.title':  '📚 Aprendiendo',
-    'now.building.title':  '🛠️ Construyendo',
-    'now.focus.title':     '🎯 Foco profesional',
 
     // Blog
     'blog.title':          'Blog',
@@ -65,6 +62,12 @@ export const ui = {
     'contact.linkedin':    'LinkedIn',
     'contact.github':      'GitHub',
     'contact.email':       'Email',
+
+    // Meta descriptions (per page)
+    'meta.desc.about':    'Ingeniero backend con más de 10 años de experiencia. De dónde vengo, qué construyo y la tecnología que utilizo.',
+    'meta.desc.now':      'En qué estoy trabajando ahora mismo: lo que aprendo, investigo y construyo sobre IA, agentes y backend.',
+    'meta.desc.projects': 'Experimentos y proyectos personales de Víctor Pariente — backend, IA y herramientas que construyo en mi tiempo libre.',
+    'meta.desc.contact':  'Ponte en contacto con Víctor Pariente — LinkedIn, GitHub y correo electrónico.',
 
     // Footer
     'footer.madeWith':     'Hecho con Astro. Código abierto en GitHub.',
@@ -105,9 +108,6 @@ export const ui = {
     // Now
     'now.title':           'Now',
     'now.updated':         'Updated',
-    'now.learning.title':  '📚 Learning',
-    'now.building.title':  '🛠️ Building',
-    'now.focus.title':     '🎯 Professional focus',
 
     // Blog
     'blog.title':          'Blog',
@@ -131,6 +131,12 @@ export const ui = {
     'contact.linkedin':    'LinkedIn',
     'contact.github':      'GitHub',
     'contact.email':       'Email',
+
+    // Meta descriptions (per page)
+    'meta.desc.about':    'Backend engineer with 10+ years of experience. Where I come from, what I build, and the tech I use.',
+    'meta.desc.now':      'What I am working on right now: what I am learning, researching and building around AI, agents and backend.',
+    'meta.desc.projects': 'Experiments and personal projects by Víctor Pariente — backend, AI and tools I build in my spare time.',
+    'meta.desc.contact':  'Get in touch with Víctor Pariente — LinkedIn, GitHub and email.',
 
     // Footer
     'footer.madeWith':     'Built with Astro. Open source on GitHub.',

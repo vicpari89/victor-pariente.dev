@@ -7,6 +7,11 @@ export default defineConfig({
   site: 'https://victor-pariente.dev',
   integrations: [
     mdx(),
-    sitemap(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'es',
+        locales: { es: 'es-ES', en: 'en-US' },
+      },
+    }),
   ],
 });

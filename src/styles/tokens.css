@@ -1,23 +1,25 @@
 /* ─── COLOR TOKENS ─────────────────────────────────────────────────── */
 
-/* Light (default) — Portfolio UI template */
+/* Light (default) — Portfolio UI template.
+   muted / link / accent-text darkened to meet WCAG AA (≥4.5:1) on the
+   white background; --color-accent stays the bright brand red for
+   non-text UI (rules, dots) and large display headings only. */
 :root,
 [data-theme="light"] {
   --color-bg:          #FFFFFF;
   --color-surface:     #EDF7FA;
   --color-border:      #E0E0E0;
   --color-text:        #21243D;
-  --color-muted:       #8695A4;
-  --color-accent:      #FF6464;
+  --color-muted:       #5C6B7A;   /* AA on #FFF */
+  --color-accent:      #FF6464;   /* UI / large display only */
   --color-accent-2:    #FF9166;
+  --color-accent-text: #CC3D3D;   /* AA — accent-coloured body text */
   --color-accent-dim:  rgba(255, 100, 100, 0.08);
-  --color-link:        #00A8CC;
+  --color-link:        #0A7C99;   /* AA on #FFF */
   --color-year:        #142850;
 
-  --radius-sm:   2px;
-  --radius-card: 4px;
-  --radius-pill: 16px;
-  --radius-lg:   6px;
+  --shadow-card:       0 4px 12px rgba(33, 36, 61, 0.08);
+  --shadow-card-hover: 0 8px 24px rgba(33, 36, 61, 0.14);
 }
 
 [data-theme="dark"] {
@@ -25,17 +27,16 @@
   --color-surface:     #1A2332;
   --color-border:      #2A3142;
   --color-text:        #E8EAF6;
-  --color-muted:       #8695A4;
+  --color-muted:       #8695A4;   /* AA on dark bg */
   --color-accent:      #FF6464;
   --color-accent-2:    #FF9166;
-  --color-accent-dim:  rgba(255, 100, 100, 0.08);
-  --color-link:        #00A8CC;
+  --color-accent-text: #FF6464;   /* AA on dark bg as-is */
+  --color-accent-dim:  rgba(255, 100, 100, 0.12);
+  --color-link:        #00A8CC;   /* AA on dark bg */
   --color-year:        #142850;
 
-  --radius-sm:   2px;
-  --radius-card: 4px;
-  --radius-pill: 16px;
-  --radius-lg:   6px;
+  --shadow-card:       0 4px 14px rgba(0, 0, 0, 0.5);
+  --shadow-card-hover: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
 
