@@ -1,6 +1,7 @@
 ---
 import Header from './Header.astro';
 import Footer from './Footer.astro';
+import { switchLang } from '../../i18n/utils';
 import '../../styles/global.css';
 
 interface Props {
@@ -24,6 +25,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="es" href={new URL(switchLang(Astro.url, 'es'), Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(switchLang(Astro.url, 'en'), Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(switchLang(Astro.url, 'en'), Astro.site)} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} · vp.dev</title>
 
