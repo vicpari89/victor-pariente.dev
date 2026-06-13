@@ -1,4 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="6" fill="#0A0A0B"/>
-  <text x="4" y="23" font-family="monospace" font-size="18" font-weight="700" fill="#4F8EF7">vp</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="vp" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF6464"/>
+      <stop offset="1" stop-color="#FF9166"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="url(#vp)"/>
+  <text x="16" y="17" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="700"
+        letter-spacing="-0.5" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">VP</text>
 </svg>
