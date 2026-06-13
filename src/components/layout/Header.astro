@@ -69,6 +69,8 @@ function isActive(path: string, exact = false): boolean {
       </div>
     </nav>
 
+    <div class="header__backdrop" aria-hidden="true"></div>
+
     <ul id="mobile-nav" class="header__mobile-nav">
       {navLinks.map(({ key, path, exact }) => (
         <li>
@@ -89,16 +91,21 @@ function isActive(path: string, exact = false): boolean {
   const toggle = document.getElementById('nav-toggle');
   const header = toggle?.closest('.header') as HTMLElement | null;
   const mobileNav = document.getElementById('mobile-nav');
+  const backdrop = header?.querySelector('.header__backdrop');
 
   function setOpen(open: boolean) {
     if (!header || !toggle) return;
     header.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
   }
 
   toggle?.addEventListener('click', () => {
     setOpen(!header?.classList.contains('is-open'));
   });
+
+  // Tap the dimmed backdrop to close
+  backdrop?.addEventListener('click', () => setOpen(false));
 
   // Close when a link is tapped so in-page navigation feels right
   mobileNav?.querySelectorAll('a').forEach((link) => {
@@ -237,6 +244,22 @@ function isActive(path: string, exact = false): boolean {
     display: flex;
   }
 
+  /* ── Dimmed backdrop behind the open menu (mobile) ── */
+  .header__backdrop {
+    display: none;
+    position: fixed;
+    inset: 64px 0 0 0; /* sits below the 64px header bar */
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  .header.is-open .header__backdrop {
+    opacity: 1;
+    visibility: visible;
+  }
+
   /* ── Mobile slide-down panel ── */
   .header__mobile-nav {
     position: absolute;
@@ -279,6 +302,10 @@ function isActive(path: string, exact = false): boolean {
 
     .header__mobile-nav {
       display: flex;
+    }
+
+    .header__backdrop {
+      display: block;
     }
   }
 </style>
