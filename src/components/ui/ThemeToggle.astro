@@ -33,18 +33,7 @@
   function setTheme(theme: Theme) {
     html.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-    updateIcon(theme);
   }
-
-  function updateIcon(theme: Theme) {
-    const moon = btn?.querySelector('.icon--moon') as HTMLElement | null;
-    const sun  = btn?.querySelector('.icon--sun')  as HTMLElement | null;
-    if (!moon || !sun) return;
-    moon.style.display = theme === 'light' ? 'flex' : 'none';
-    sun.style.display  = theme === 'dark'  ? 'flex' : 'none';
-  }
-
-  updateIcon(getTheme());
 
   btn?.addEventListener('click', () => {
     setTheme(getTheme() === 'light' ? 'dark' : 'light');
@@ -72,9 +61,17 @@
     border-color: var(--color-muted);
   }
 
+  /* Icon visibility is driven by the html[data-theme] attribute (set
+     before paint in BaseLayout), so exactly one icon shows from the
+     first frame — no JS, no moon+sun flash on page load. */
   .icon {
-    display: flex;
     align-items: center;
     justify-content: center;
   }
+
+  .icon--moon { display: flex; }
+  .icon--sun  { display: none; }
+
+  :global([data-theme="dark"]) .icon--moon { display: none; }
+  :global([data-theme="dark"]) .icon--sun  { display: flex; }
 </style>
