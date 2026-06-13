@@ -39,10 +39,72 @@ const currentPath = Astro.url.pathname;
       <div class="header__controls">
         <LangToggle />
         <ThemeToggle />
+        <button
+          id="nav-toggle"
+          class="header__burger"
+          aria-label="Menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+        >
+          <span class="icon icon--open" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </span>
+          <span class="icon icon--close" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </span>
+        </button>
       </div>
     </nav>
+
+    <ul id="mobile-nav" class="header__mobile-nav">
+      {navLinks.map(({ key, path }) => (
+        <li>
+          <a
+            href={path}
+            class={`header__link ${currentPath === path || currentPath.startsWith(path + '/') ? 'header__link--active' : ''}`}
+          >
+            {t(key)}
+          </a>
+        </li>
+      ))}
+    </ul>
   </div>
 </header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const header = toggle?.closest('.header') as HTMLElement | null;
+  const mobileNav = document.getElementById('mobile-nav');
+
+  function setOpen(open: boolean) {
+    if (!header || !toggle) return;
+    header.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+
+  toggle?.addEventListener('click', () => {
+    setOpen(!header?.classList.contains('is-open'));
+  });
+
+  // Close when a link is tapped so in-page navigation feels right
+  mobileNav?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setOpen(false));
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+
+  // Close if widened past the mobile breakpoint
+  window.matchMedia('(min-width: 721px)').addEventListener('change', (e) => {
+    if (e.matches) setOpen(false);
+  });
+</script>
 
 <style>
   .header {
@@ -125,9 +187,87 @@ const currentPath = Astro.url.pathname;
     flex-shrink: 0;
   }
 
+  /* ── Burger button (mobile only) ── */
+  .header__burger {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-muted);
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2);
+    width: 34px;
+    height: 34px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .header__burger:hover {
+    color: var(--color-text);
+    border-color: var(--color-muted);
+  }
+
+  .header__burger .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header__burger .icon--close {
+    display: none;
+  }
+
+  .header.is-open .header__burger .icon--open {
+    display: none;
+  }
+
+  .header.is-open .header__burger .icon--close {
+    display: flex;
+  }
+
+  /* ── Mobile slide-down panel ── */
+  .header__mobile-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    list-style: none;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.25s ease, opacity 0.2s ease;
+    display: none;
+  }
+
+  .header.is-open .header__mobile-nav {
+    max-height: 80vh;
+    opacity: 1;
+  }
+
+  .header__mobile-nav .header__link {
+    display: block;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .header__mobile-nav .header__link--active::after {
+    display: none;
+  }
+
   @media (max-width: 720px) {
     .header__links {
       display: none;
+    }
+
+    .header__burger {
+      display: flex;
+    }
+
+    .header__mobile-nav {
+      display: flex;
     }
   }
 </style>
