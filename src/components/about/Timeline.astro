@@ -244,7 +244,8 @@ const displayed =
   .tl--work .tl__badge,
   .tl--work-current .tl__badge {
     border-color: var(--color-accent);
-    background: var(--color-accent-dim);
+    /* tint composited over an opaque base so the spine line doesn't show through */
+    background: linear-gradient(var(--color-accent-dim), var(--color-accent-dim)), var(--color-bg);
     color: var(--color-accent-text);
   }
 

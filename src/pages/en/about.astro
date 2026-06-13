@@ -3,6 +3,8 @@ import BaseLayout from '../../components/layout/BaseLayout.astro';
 import Timeline from '../../components/about/Timeline.astro';
 import Skills from '../../components/about/Skills.astro';
 import { useTranslations } from '../../i18n/utils';
+import { Image } from 'astro:assets';
+import avatar from '../../assets/avatar.jpg';
 
 const lang = 'en';
 const t = useTranslations(lang);
@@ -21,12 +23,12 @@ const specialties = [
   },
   {
     title: 'Cloud & data',
-    desc: 'Services deployed on cloud infrastructure, with analytics and event pipelines.',
+    desc: 'Cloud services with real-time data and event streams.',
     tags: ['Google Cloud', 'Kubernetes', 'BigQuery', 'Kafka'],
   },
   {
     title: 'AI & agents',
-    desc: 'AI as a daily tool: copilots, agents and MCP in real workflows.',
+    desc: 'AI as a daily tool: agents, MCP and LLMs in real workflows.',
     tags: ['Copilot', 'Gemini', 'Agents', 'MCP'],
   },
 ];
@@ -46,7 +48,7 @@ const specialties = [
       </div>
       <div class="avatar-frame">
         <div class="avatar-frame__inner">
-          <img class="avatar-frame__img" src="/avatar.jpg" alt="Víctor Pariente" width="220" height="220" />
+          <Image class="avatar-frame__img" src={avatar} alt="Víctor Pariente" width={220} height={220} loading="eager" />
         </div>
       </div>
     </section>
