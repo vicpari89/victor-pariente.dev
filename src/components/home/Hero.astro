@@ -1,6 +1,8 @@
 ---
 import type { Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
+import { Image } from 'astro:assets';
+import avatar from '../../assets/avatar.jpg';
 
 interface Props {
   lang: Lang;
@@ -34,7 +36,7 @@ const statusText = 'Senior Software Engineer · eDreams ODIGEO';
 
   <div class="hero__visual">
     <div class="hero__ellipse" aria-hidden="true"></div>
-    <img class="hero__avatar" src="/avatar.jpg" alt="Víctor Pariente" width="243" height="243" />
+    <Image class="hero__avatar" src={avatar} alt="Víctor Pariente" width={243} height={243} loading="eager" fetchpriority="high" />
   </div>
 </section>
 
@@ -72,7 +74,7 @@ const statusText = 'Senior Software Engineer · eDreams ODIGEO';
 
   .hero__role {
     display: block;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   .hero__bio {

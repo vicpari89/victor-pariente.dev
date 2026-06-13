@@ -148,17 +148,18 @@ const exploreLabel = lang === 'es' ? 'Explora el sitio' : 'Explore';
     background: var(--color-bg);
     border-radius: var(--radius-card);
     padding: var(--space-8);
-    box-shadow: 0 4px 10px rgba(187, 225, 250, 0.25);
+    box-shadow: var(--shadow-card);
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
-    transition: box-shadow 0.15s;
+    transition: box-shadow 0.15s, transform 0.15s;
   }
 
   .home-card:hover {
-    box-shadow: 0 6px 20px rgba(187, 225, 250, 0.45);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
     text-decoration: none;
   }
 
@@ -175,7 +176,7 @@ const exploreLabel = lang === 'es' ? 'Explora el sitio' : 'Explore';
   }
 
   .home-card__source {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   .home-card__title {
@@ -234,7 +235,7 @@ const exploreLabel = lang === 'es' ? 'Explora el sitio' : 'Explore';
   }
 
   .home-explore__item:hover .home-explore__item-title {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   .home-explore__item-text {
@@ -258,7 +259,7 @@ const exploreLabel = lang === 'es' ? 'Explora el sitio' : 'Explore';
 
   .home-explore__arrow {
     font-size: var(--text-xl);
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     flex-shrink: 0;
     transition: transform 0.15s;
   }

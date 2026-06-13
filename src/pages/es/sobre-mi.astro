@@ -2,8 +2,12 @@
 import BaseLayout from '../../components/layout/BaseLayout.astro';
 import Timeline from '../../components/about/Timeline.astro';
 import Skills from '../../components/about/Skills.astro';
+import { useTranslations } from '../../i18n/utils';
+import { Image } from 'astro:assets';
+import avatar from '../../assets/avatar.jpg';
 
 const lang = 'es';
+const t = useTranslations(lang);
 
 const stats = [
   { num: '10+',        label: 'años construyendo software' },
@@ -19,17 +23,17 @@ const specialties = [
   },
   {
     title: 'Cloud y datos',
-    desc: 'Servicios desplegados en cloud, con analítica y pipelines de eventos.',
+    desc: 'Servicios en cloud, con flujos de datos y eventos en tiempo real.',
     tags: ['Google Cloud', 'Kubernetes', 'BigQuery', 'Kafka'],
   },
   {
     title: 'IA y agentes',
-    desc: 'La IA como herramienta diaria: copilotos, agentes y MCP en flujos reales.',
+    desc: 'La IA como herramienta diaria: agentes, MCP y LLMs en flujos reales.',
     tags: ['Copilot', 'Gemini', 'Agentes', 'MCP'],
   },
 ];
 ---
-<BaseLayout title="Sobre mí" lang={lang}>
+<BaseLayout title="Sobre mí" description={t('meta.desc.about')} lang={lang}>
   <div class="container">
     <!-- ── Hero ── -->
     <section class="about-hero">
@@ -44,7 +48,7 @@ const specialties = [
       </div>
       <div class="avatar-frame">
         <div class="avatar-frame__inner">
-          <img class="avatar-frame__img" src="/avatar.jpg" alt="Víctor Pariente" width="220" height="220" />
+          <Image class="avatar-frame__img" src={avatar} alt="Víctor Pariente" width={220} height={220} loading="eager" />
         </div>
       </div>
     </section>
@@ -163,7 +167,7 @@ const specialties = [
     font-size: var(--text-sm);
     font-weight: 700;
     letter-spacing: 0.05em;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   .spec-card__title {

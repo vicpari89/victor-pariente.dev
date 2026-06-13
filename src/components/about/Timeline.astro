@@ -244,8 +244,9 @@ const displayed =
   .tl--work .tl__badge,
   .tl--work-current .tl__badge {
     border-color: var(--color-accent);
-    background: var(--color-accent-dim);
-    color: var(--color-accent);
+    /* tint composited over an opaque base so the spine line doesn't show through */
+    background: linear-gradient(var(--color-accent-dim), var(--color-accent-dim)), var(--color-bg);
+    color: var(--color-accent-text);
   }
 
   .tl--work-current .tl__badge {
@@ -284,7 +285,7 @@ const displayed =
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     margin-bottom: var(--space-1);
   }
 

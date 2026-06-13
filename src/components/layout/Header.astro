@@ -37,6 +37,7 @@ function isActive(path: string, exact = false): boolean {
             <a
               href={path}
               class={`header__link ${isActive(path, exact) ? 'header__link--active' : ''}`}
+              aria-current={isActive(path, exact) ? 'page' : undefined}
             >
               {t(key)}
             </a>
@@ -74,6 +75,7 @@ function isActive(path: string, exact = false): boolean {
           <a
             href={path}
             class={`header__link ${isActive(path, exact) ? 'header__link--active' : ''}`}
+            aria-current={isActive(path, exact) ? 'page' : undefined}
           >
             {t(key)}
           </a>
@@ -145,7 +147,7 @@ function isActive(path: string, exact = false): boolean {
   }
 
   .header__logo-dot {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   .header__links {
@@ -170,12 +172,12 @@ function isActive(path: string, exact = false): boolean {
   }
 
   .header__link:hover {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     text-decoration: none;
   }
 
   .header__link--active {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   .header__link--active::after {
@@ -193,6 +195,7 @@ function isActive(path: string, exact = false): boolean {
     align-items: center;
     gap: var(--space-2);
     flex-shrink: 0;
+    margin-left: auto;
   }
 
   /* ── Burger button (mobile only) ── */

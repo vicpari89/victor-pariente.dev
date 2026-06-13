@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../components/layout/BaseLayout.astro';
 import PageHeader from '../../components/layout/PageHeader.astro';
+import { useTranslations } from '../../i18n/utils';
 
 const lang = 'en';
+const t = useTranslations(lang);
 const updated = 'June 2026';
 
 const rows = [
@@ -31,7 +33,7 @@ const rows = [
   },
 ];
 ---
-<BaseLayout title="Now" lang={lang}>
+<BaseLayout title="Now" description={t('meta.desc.now')} lang={lang}>
   <div class="container">
     <PageHeader
       eyebrow="Live"

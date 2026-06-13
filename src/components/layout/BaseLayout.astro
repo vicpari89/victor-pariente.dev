@@ -8,15 +8,51 @@ interface Props {
   title: string;
   description?: string;
   lang?: string;
+  image?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
   title,
   description = 'Víctor Pariente González — Backend engineer. Learning in public.',
   lang = 'es',
+  image = '/og-default.png',
+  jsonLd,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+
+const isHome = /^\/(es|en)\/?$/.test(Astro.url.pathname);
+const siteName = 'Víctor Pariente';
+const tagline = lang === 'es' ? 'Ingeniero de Software' : 'Software Engineer';
+const fullTitle = isHome ? `${siteName} — ${tagline}` : `${title} · ${siteName}`;
+
+const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
+const altLocale = lang === 'es' ? 'en_US' : 'es_ES';
+
+// Default structured data: Person + WebSite. Pages may override via `jsonLd`.
+const defaultJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Víctor Pariente González',
+    url: Astro.site?.href,
+    jobTitle: tagline,
+    sameAs: [
+      'https://linkedin.com/in/victor-pariente',
+      'https://github.com/vicpari89',
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteName,
+    url: Astro.site?.href,
+    inLanguage: lang,
+  },
+];
+const structuredData = jsonLd ?? defaultJsonLd;
 ---
 <!doctype html>
 <html lang={lang} data-theme="light">
@@ -29,21 +65,52 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="alternate" hreflang="en" href={new URL(switchLang(Astro.url, 'en'), Astro.site)} />
     <link rel="alternate" hreflang="x-default" href={new URL(switchLang(Astro.url, 'en'), Astro.site)} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title} · vp.dev</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>{fullTitle}</title>
 
-    <!-- Theme init: runs before paint to avoid flash -->
+    <!-- Fonts: preconnect + non-blocking stylesheet (replaces CSS @import) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={isHome ? 'website' : 'profile'} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={altLocale} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
+
+    <!-- Theme init: runs before paint to avoid flash; honours system preference -->
     <script is:inline>
       (function () {
         const stored = localStorage.getItem('theme');
         const valid = ['light', 'dark'];
-        const theme = valid.includes(stored ?? '') ? stored : 'light';
+        const theme = valid.includes(stored ?? '')
+          ? stored
+          : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         document.documentElement.setAttribute('data-theme', theme);
       })();
     </script>
   </head>
   <body>
+    <a href="#main" class="skip-link">{lang === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a>
     <Header />
-    <main>
+    <main id="main">
       <slot />
     </main>
     <Footer />
