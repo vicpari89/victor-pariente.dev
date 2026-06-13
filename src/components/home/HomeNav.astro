@@ -1,5 +1,6 @@
 ---
 import type { Lang } from '../../i18n/ui';
+import { getRoute } from '../../i18n/utils';
 
 interface Props {
   lang: Lang;
@@ -40,15 +41,15 @@ const articles = lang === 'es' ? [
 ];
 
 const sections = lang === 'es' ? [
-  { title: 'Sobre mí',   desc: 'De dónde vengo, qué construyo y qué se.',         href: `/${lang}/about`    },
-  { title: 'Ahora',      desc: 'Qué estoy aprendiendo y construyendo en este momento.',               href: `/${lang}/now`      },
-  { title: 'Blog',       desc: 'Artículos sobre ingeniería de software, IA y lo que voy aprendiendo.',                href: `/${lang}/blog`     },
-  { title: 'Proyectos',  desc: 'Experimentos y proyectos que construyo en mi tiempo libre.',              href: `/${lang}/projects` },
+  { title: 'Sobre mí',   desc: 'De dónde vengo, qué construyo y qué se.',         href: getRoute('about', lang)    },
+  { title: 'Ahora',      desc: 'Qué estoy aprendiendo y construyendo en este momento.',               href: getRoute('now', lang)      },
+  { title: 'Blog',       desc: 'Artículos sobre ingeniería de software, IA y lo que voy aprendiendo.',                href: getRoute('blog', lang)     },
+  { title: 'Proyectos',  desc: 'Experimentos y proyectos que construyo en mi tiempo libre.',              href: getRoute('projects', lang) },
 ] : [
-  { title: 'About',      desc: 'Where I come from, what I build, and what I know.',                    href: `/${lang}/about`    },
-  { title: 'Now',        desc: 'What I\'m currently learning and building right now.',                 href: `/${lang}/now`      },
-  { title: 'Blog',       desc: 'Articles on software engineering, AI, and what I\'m learning along the way.', href: `/${lang}/blog`     },
-  { title: 'Projects',   desc: 'Experiments and projects I build in my spare time.',                   href: `/${lang}/projects` },
+  { title: 'About',      desc: 'Where I come from, what I build, and what I know.',                    href: getRoute('about', lang)    },
+  { title: 'Now',        desc: 'What I\'m currently learning and building right now.',                 href: getRoute('now', lang)      },
+  { title: 'Blog',       desc: 'Articles on software engineering, AI, and what I\'m learning along the way.', href: getRoute('blog', lang)     },
+  { title: 'Projects',   desc: 'Experiments and projects I build in my spare time.',                   href: getRoute('projects', lang) },
 ];
 
 const recentLabel  = lang === 'es' ? 'Últimos artículos' : 'Latest articles';

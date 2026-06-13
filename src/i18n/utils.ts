@@ -16,12 +16,23 @@ export function getLocalePath(lang: Lang, path: string): string {
   return `/${lang}${path}`;
 }
 
-// Routes whose slug differs between languages. Anything not listed here
-// keeps the same slug across locales (e.g. /es/about ↔ /en/about).
-const localizedRoutes: Array<Record<Lang, string>> = [
-  { es: '/aviso-legal', en: '/legal-notice' },
-  { es: '/privacidad', en: '/privacy' },
-];
+// Single source of truth for routes whose slug differs between languages.
+// Anything not listed here keeps the same slug across locales.
+export const routes = {
+  about:    { es: '/sobre-mi',    en: '/about' },
+  now:      { es: '/ahora',       en: '/now' },
+  blog:     { es: '/blog',        en: '/blog' },
+  projects: { es: '/proyectos',   en: '/projects' },
+  contact:  { es: '/contacto',    en: '/contact' },
+  legal:    { es: '/aviso-legal', en: '/legal-notice' },
+  privacy:  { es: '/privacidad',  en: '/privacy' },
+} as const satisfies Record<string, Record<Lang, string>>;
+
+export type RouteName = keyof typeof routes;
+
+export function getRoute(name: RouteName, lang: Lang): string {
+  return `/${lang}${routes[name][lang]}`;
+}
 
 export function switchLang(url: URL, targetLang: Lang): string {
   const segments = url.pathname.split('/').filter(Boolean);
@@ -30,7 +41,7 @@ export function switchLang(url: URL, targetLang: Lang): string {
   const sourceLang: Lang = hasLang ? currentLang : defaultLang;
   const rest = '/' + (hasLang ? segments.slice(1) : segments).join('/');
 
-  const match = localizedRoutes.find((route) => route[sourceLang] === rest);
+  const match = Object.values(routes).find((route) => route[sourceLang] === rest);
   const targetRest = match ? match[targetLang] : rest;
 
   return targetRest === '/' ? `/${targetLang}` : `/${targetLang}${targetRest}`;

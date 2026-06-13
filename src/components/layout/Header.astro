@@ -1,17 +1,17 @@
 ---
 import ThemeToggle from '../ui/ThemeToggle.astro';
 import LangToggle from '../ui/LangToggle.astro';
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { getLangFromUrl, useTranslations, getRoute } from '../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const navLinks = [
-  { key: 'nav.about',    path: `/${lang}/about`    },
-  { key: 'nav.now',      path: `/${lang}/now`       },
-  { key: 'nav.blog',     path: `/${lang}/blog`      },
-  { key: 'nav.projects', path: `/${lang}/projects`  },
-  { key: 'nav.contact',  path: `/${lang}/contact`   },
+  { key: 'nav.about',    path: getRoute('about', lang)    },
+  { key: 'nav.now',      path: getRoute('now', lang)      },
+  { key: 'nav.blog',     path: getRoute('blog', lang)     },
+  { key: 'nav.projects', path: getRoute('projects', lang) },
+  { key: 'nav.contact',  path: getRoute('contact', lang)  },
 ] as const;
 
 const currentPath = Astro.url.pathname;
