@@ -32,9 +32,6 @@ export const ui = {
     'about.title': 'Sobre mí',
     'about.stack.experience': 'Experiencia',
     'about.stack.exploring':  'Explorando',
-    'about.philosophy.title': 'Filosofía',
-    'about.philosophy.body':
-      'Me importa el código bien hecho, pero soy más práctico que perfeccionista. Tengo una base sólida y la aplico — sin que la búsqueda de lo perfecto se convierta en un obstáculo para avanzar.',
 
     // Now
     'now.title':           'Ahora',
@@ -101,9 +98,6 @@ export const ui = {
     'about.title': 'About',
     'about.stack.experience': 'Experience',
     'about.stack.exploring':  'Exploring',
-    'about.philosophy.title': 'Philosophy',
-    'about.philosophy.body':
-      'I care about doing things properly, but I lean practical over perfect. Solid foundations — just not letting them become a reason to slow down.',
 
     // Now
     'now.title':           'Now',
