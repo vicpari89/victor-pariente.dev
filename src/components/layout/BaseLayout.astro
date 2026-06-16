@@ -2,6 +2,7 @@
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import { switchLang } from '../../i18n/utils';
+import SpeedInsights from '@vercel/speed-insights/astro';
 import '../../styles/global.css';
 
 interface Props {
@@ -114,5 +115,6 @@ const structuredData = jsonLd ?? defaultJsonLd;
       <slot />
     </main>
     <Footer />
+    <SpeedInsights />
   </body>
 </html>
