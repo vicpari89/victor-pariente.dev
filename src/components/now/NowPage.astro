@@ -1,0 +1,128 @@
+---
+import type { Lang } from '../../i18n/ui';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
+const c = {
+  es: {
+    title: 'Ahora',
+    lead: 'Lo que estoy investigando, aprendiendo y construyendo.',
+    updated: 'Actualizado en noviembre de 2026',
+    focusLabel: 'Foco principal',
+    status: 'En curso',
+    focusTitle: 'Trabajo de fin de máster: accesibilidad urbana con machine learning',
+    focusText: 'Última parte del Máster en Ciencia de Datos de la Universitat Oberta de Catalunya. Diseño y validación de modelos para clasificar la accesibilidad de tramos de calle con datos de Albacete y Algeciras.',
+    code: 'Código',
+    thesis: 'Memoria',
+    groups: [
+      { label: 'Explorando', items: [
+        'Agentes, skills y MCP para llevar un modelo de lenguaje a actuar como un compañero de equipo de verdad, no como un autocompletado.',
+        'Machine learning y árboles de decisión.',
+      ] },
+      { label: 'Construyendo', items: [
+        'Esta web.',
+        { label: 'Amigo Regala', href: 'https://www.amigoregala.com/', text: ', mi aplicación web de sorteo de amigo invisible.' },
+        'MCPs, agentes y skills para automatizar el día a día.',
+        'Gemini Gems y NotebookLM para automatizar y facilitar procesos.',
+      ] },
+      { label: 'En lo que me centro', items: [
+        'Aplicar lo que aprendo de inteligencia artificial a problemas reales de backend.',
+        'Design Systems: fundamentos y patrones.',
+      ] },
+    ],
+  },
+  en: {
+    title: 'Now',
+    lead: 'What I am researching, learning, and building.',
+    updated: 'Updated in November 2026',
+    focusLabel: 'Main focus',
+    status: 'In progress',
+    focusTitle: 'Master’s thesis: urban accessibility with machine learning',
+    focusText: 'Final part of the Master’s in Data Science at the Universitat Oberta de Catalunya. Design and validation of models that classify the accessibility of street segments, using data from Albacete and Algeciras.',
+    code: 'Code',
+    thesis: 'Thesis',
+    groups: [
+      { label: 'Exploring', items: [
+        'Agents, skills and MCP to push a language model to act as a real teammate, not autocomplete.',
+        'Machine learning and decision trees.',
+      ] },
+      { label: 'Building', items: [
+        'This website.',
+        { label: 'Amigo Regala', href: 'https://www.amigoregala.com/', text: ', my Secret Santa draw web application.' },
+        'MCPs, agents and skills to automate everyday workflows.',
+        'Gemini Gems and NotebookLM to automate and simplify processes.',
+      ] },
+      { label: 'Focusing on', items: [
+        'Applying what I learn about artificial intelligence to real backend problems.',
+        'Design Systems: fundamentals and patterns.',
+      ] },
+    ],
+  },
+}[lang];
+---
+<main class="container now">
+  <header class="page-head">
+    <h1 class="page-title">{c.title}</h1>
+    <p class="lead">{c.lead}</p>
+    <time datetime="2026-11">{c.updated}</time>
+  </header>
+
+  <section class="focus" aria-labelledby="focus-title">
+    <h2 class="focus__label">{c.focusLabel}</h2>
+    <div class="focus__body">
+      <p class="focus__status"><span class="dot" aria-hidden="true"></span>{c.status}</p>
+      <h3 id="focus-title">{c.focusTitle}</h3>
+      <p>{c.focusText}</p>
+      <p class="focus__links">
+        <a class="stamp stamp--primary" href="https://github.com/vicpari89/tfm-urban-accessibility-ml/" target="_blank" rel="noopener noreferrer">{c.code} ↗</a>
+        <a class="stamp" href="https://github.com/vicpari89/tfm-urban-accessibility-ml-thesis/" target="_blank" rel="noopener noreferrer">{c.thesis} ↗</a>
+      </p>
+    </div>
+  </section>
+
+  {c.groups.map((g) => (
+    <section class="group">
+      <h2 class="group__label">{g.label}</h2>
+      <ul>{g.items.map((i) => <li>{typeof i === 'string' ? i : <><a href={i.href} target="_blank" rel="noopener noreferrer">{i.label}</a>{i.text}</>}</li>)}</ul>
+    </section>
+  ))}
+</main>
+
+<style>
+  .now { padding-bottom: var(--space-20); }
+  time { display: block; margin-top: var(--space-6); color: var(--color-muted); font-size: var(--text-sm); }
+
+  .focus, .group {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    column-gap: var(--space-8);
+    padding: var(--space-8) 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .focus { border-top: 1px solid var(--color-text); }
+  .group:last-child { border-bottom: 1px solid var(--color-text); }
+  .focus__label, .group__label { font-size: var(--text-2xl); line-height: 1; }
+
+  .focus__status { display: flex; align-items: center; gap: var(--space-2); font-family: var(--font-display); font-weight: 700; font-size: var(--text-sm); letter-spacing: .1em; text-transform: uppercase; color: var(--color-accent-text); }
+  .dot { width: 8px; height: 8px; background: var(--color-accent); }
+  .focus h3 { margin: var(--space-3) 0 var(--space-4); font-size: clamp(1.9rem, 4vw, 3rem); line-height: .95; letter-spacing: -.02em; max-width: 22ch; }
+  .focus__body > p:not(.focus__status):not(.focus__links) { max-width: 60ch; font-size: var(--text-lg); line-height: 1.6; color: var(--color-muted); }
+  .focus__links { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+
+  .stamp {
+    font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); letter-spacing: .08em; text-transform: uppercase;
+    padding: .35rem .55rem; border: 1px solid var(--color-text); color: var(--color-text); text-decoration: none;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .stamp:hover { background: var(--color-text); color: var(--color-bg); }
+  .stamp--primary { background: var(--color-text); color: var(--color-bg); }
+  .stamp--primary:hover { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+
+  .group ul { list-style: none; display: grid; gap: var(--space-3); }
+  .group li { max-width: 62ch; line-height: 1.55; padding-left: var(--space-4); position: relative; }
+  .group li::before { content: ''; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; background: var(--color-accent); }
+
+  @media (max-width: 720px) {
+    .focus, .group { grid-template-columns: 1fr; row-gap: var(--space-4); }
+  }
+</style>

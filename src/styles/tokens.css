@@ -1,49 +1,45 @@
 /* ─── COLOR TOKENS ─────────────────────────────────────────────────── */
 
-/* Light (default) — Portfolio UI template.
-   muted / link / accent-text darkened to meet WCAG AA (≥4.5:1) on the
-   white background; --color-accent stays the bright brand red for
-   non-text UI (rules, dots) and large display headings only. */
 :root,
 [data-theme="light"] {
-  --color-bg:          #FFFFFF;
-  --color-surface:     #EDF7FA;
-  --color-border:      #E0E0E0;
-  --color-text:        #21243D;
-  --color-muted:       #5C6B7A;   /* AA on #FFF */
-  --color-accent:      #FF6464;   /* UI / large display only */
-  --color-accent-2:    #FF9166;
-  --color-accent-text: #CC3D3D;   /* AA — accent-coloured body text */
-  --color-accent-dim:  rgba(255, 100, 100, 0.08);
-  --color-link:        #0A7C99;   /* AA on #FFF */
-  --color-year:        #142850;
+  --color-bg:          #F1EBDD;
+  --color-surface:     #E5DDCD;
+  --color-border:      #C9BDAA;
+  --color-text:        #191A1E;
+  --color-muted:       #5B554D;
+  --color-accent:      #B94E39;
+  --color-accent-2:    #D99A36;
+  --color-accent-text: #A23F2B;
+  --color-accent-dim:  rgba(185, 78, 57, .12);
+  --color-link:        #1E5962;
+  --color-year:        #191A1E;
 
-  --shadow-card:       0 4px 12px rgba(33, 36, 61, 0.08);
-  --shadow-card-hover: 0 8px 24px rgba(33, 36, 61, 0.14);
+  --shadow-card:       0 10px 24px rgba(44, 34, 24, 0.1);
+  --shadow-card-hover: 0 16px 32px rgba(44, 34, 24, 0.16);
 }
 
 [data-theme="dark"] {
-  --color-bg:          #0F1117;
-  --color-surface:     #1A2332;
-  --color-border:      #2A3142;
-  --color-text:        #E8EAF6;
-  --color-muted:       #8695A4;   /* AA on dark bg */
-  --color-accent:      #FF6464;
-  --color-accent-2:    #FF9166;
-  --color-accent-text: #FF6464;   /* AA on dark bg as-is */
-  --color-accent-dim:  rgba(255, 100, 100, 0.12);
-  --color-link:        #00A8CC;   /* AA on dark bg */
-  --color-year:        #142850;
+  --color-bg:          #191A1E;
+  --color-surface:     #282521;
+  --color-border:      #5B554D;
+  --color-text:        #F1EBDD;
+  --color-muted:       #B9B0A3;
+  --color-accent:      #D9644D;
+  --color-accent-2:    #D99A36;
+  --color-accent-text: #E8836E;
+  --color-accent-dim:  rgba(217, 100, 77, .18);
+  --color-link:        #79BEC0;
+  --color-year:        #F1EBDD;
 
-  --shadow-card:       0 4px 14px rgba(0, 0, 0, 0.5);
-  --shadow-card-hover: 0 10px 30px rgba(0, 0, 0, 0.6);
+  --shadow-card:       0 10px 28px rgba(0, 0, 0, 0.35);
+  --shadow-card-hover: 0 18px 38px rgba(0, 0, 0, 0.5);
 }
 
 
 /* ─── TYPOGRAPHY TOKENS ─────────────────────────────────────────────── */
 :root {
-  --font-display: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-body:    'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body:    'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-code:    'JetBrains Mono', 'Geist Mono', ui-monospace, monospace;
 
   --text-xs:    0.75rem;
@@ -75,11 +71,11 @@
   --space-20: 5rem;
   --space-24: 6rem;
 
-  --max-w-layout: 960px;
-  --max-w-blog:   720px;
+  --max-w-layout: 760px;
+  --max-w-narrow:   720px;
 
-  --radius-sm:   2px;
-  --radius-card: 4px;
-  --radius-pill: 16px;
-  --radius-lg:   6px;
+  --radius-sm: 0;
+  --radius-card: 0;
+  --radius-pill: 0;
+  --radius-lg: 0;
 }

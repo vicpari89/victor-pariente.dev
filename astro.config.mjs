@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 
@@ -10,8 +9,9 @@ export default defineConfig({
     webAnalytics: { enabled: true },
   }),
   integrations: [
-    mdx(),
     sitemap({
+      // the root is only a language redirect, not a page to index
+      filter: (page) => page !== 'https://victor-pariente.dev/',
       i18n: {
         defaultLocale: 'es',
         locales: { es: 'es-ES', en: 'en-US' },

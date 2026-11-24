@@ -1,0 +1,93 @@
+---
+import type { Lang } from '../../i18n/ui';
+import PageHeader from '../layout/PageHeader.astro';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
+const c = {
+  es: {
+    title: 'Proyectos',
+    lead: 'Dos proyectos públicos.',
+    projects: [
+      {
+        kind: 'Trabajo de fin de máster',
+        status: 'En curso',
+        title: 'Clasificación de accesibilidad urbana con machine learning',
+        text: 'Diseño y validación de modelos para clasificar la accesibilidad de tramos de calle con datos de Albacete y Algeciras.',
+        links: [
+          ['Código', 'https://github.com/vicpari89/tfm-urban-accessibility-ml/'],
+          ['Memoria', 'https://github.com/vicpari89/tfm-urban-accessibility-ml-thesis/'],
+        ],
+      },
+      {
+        kind: 'Aplicación web',
+        title: 'Amigo Regala: sorteo de amigo invisible',
+        text: 'Sorteo de amigo invisible online, gratis y sin registro. El reparto se hace en el navegador, sin emails y sin guardar nombres ni resultados. Permite exclusiones, evitar regalos cruzados y compartir el resultado con un enlace de grupo o uno por persona, con clave opcional.',
+        links: [['Abrir la aplicación', 'https://www.amigoregala.com/']],
+      },
+    ],
+  },
+  en: {
+    title: 'Projects',
+    lead: 'Two public projects.',
+    projects: [
+      {
+        kind: 'Master’s thesis',
+        status: 'In progress',
+        title: 'Urban accessibility classification with machine learning',
+        text: 'Designing and validating models that classify street-section accessibility using data from Albacete and Algeciras.',
+        links: [
+          ['Code', 'https://github.com/vicpari89/tfm-urban-accessibility-ml/'],
+          ['Thesis', 'https://github.com/vicpari89/tfm-urban-accessibility-ml-thesis/'],
+        ],
+      },
+      {
+        kind: 'Web application',
+        title: 'Amigo Regala: Secret Santa draw',
+        text: 'A free online Secret Santa draw with no sign-up. The draw runs in the browser, with no emails and no names or results stored. It supports exclusions, avoiding mutual gifts, and sharing the result through one group link or one link per person, with an optional passphrase.',
+        links: [['Open the app', 'https://www.amigoregala.com/']],
+      },
+    ],
+  },
+}[lang];
+---
+<div class="container">
+  <PageHeader title={c.title} lead={c.lead} />
+  <div class="list">
+    {c.projects.map((p) => (
+      <article class="project">
+        <div class="project__meta">
+          <h2 class="project__kind">{p.kind}</h2>
+          {p.status && <p class="project__status"><span class="dot" aria-hidden="true"></span>{p.status}</p>}
+        </div>
+        <div class="project__body">
+          <h3>{p.title}</h3>
+          <p>{p.text}</p>
+          <p class="project__links">
+            {p.links.map(([label, href], i) => (
+              <a class={`stamp ${i === 0 ? 'stamp--primary' : ''}`} href={href} target="_blank" rel="noopener noreferrer">{label} ↗</a>
+            ))}
+          </p>
+        </div>
+      </article>
+    ))}
+  </div>
+</div>
+
+<style>
+  .list { padding-bottom: var(--space-20); border-bottom: 0; }
+  .project { display: grid; grid-template-columns: 220px minmax(0, 1fr); column-gap: var(--space-8); padding: var(--space-8) 0; border-top: 1px solid var(--color-border); }
+  .project:first-child { border-top-color: var(--color-text); }
+  .project:last-child { border-bottom: 1px solid var(--color-text); }
+  .project__kind { font-size: var(--text-2xl); line-height: 1; }
+  .project__status { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); font-family: var(--font-display); font-weight: 700; font-size: var(--text-sm); letter-spacing: .1em; text-transform: uppercase; color: var(--color-accent-text); }
+  .dot { width: 8px; height: 8px; background: var(--color-accent); }
+  h3 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); line-height: .95; max-width: 20ch; }
+  .project__body > p:not(.project__links) { margin-top: var(--space-4); max-width: 60ch; font-size: var(--text-lg); line-height: 1.6; color: var(--color-muted); }
+  .project__links { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+  .stamp { font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); letter-spacing: .08em; text-transform: uppercase; padding: .35rem .55rem; border: 1px solid var(--color-text); color: var(--color-text); text-decoration: none; transition: background .15s, color .15s, border-color .15s; }
+  .stamp:hover { background: var(--color-text); color: var(--color-bg); }
+  .stamp--primary { background: var(--color-text); color: var(--color-bg); }
+  .stamp--primary:hover { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+  @media (max-width: 720px) { .project { grid-template-columns: 1fr; row-gap: var(--space-4); } }
+</style>

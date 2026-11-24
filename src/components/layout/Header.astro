@@ -10,7 +10,6 @@ const navLinks = [
   { key: 'nav.home',     path: `/${lang}/`,               exact: true },
   { key: 'nav.about',    path: getRoute('about', lang)    },
   { key: 'nav.now',      path: getRoute('now', lang)      },
-  { key: 'nav.blog',     path: getRoute('blog', lang)     },
   { key: 'nav.projects', path: getRoute('projects', lang) },
   { key: 'nav.contact',  path: getRoute('contact', lang)  },
 ] as const;
@@ -68,7 +67,6 @@ function isActive(path: string, exact = false): boolean {
         </button>
       </div>
     </nav>
-
     <div class="header__backdrop" aria-hidden="true"></div>
 
     <ul id="mobile-nav" class="header__mobile-nav">
@@ -135,14 +133,16 @@ function isActive(path: string, exact = false): boolean {
   .header__nav {
     display: flex;
     align-items: center;
-    height: 64px;
-    gap: var(--space-8);
+    height: 58px;
+    gap: var(--space-6);
   }
 
   .header__logo {
     font-family: var(--font-display);
-    font-size: var(--text-base);
-    font-weight: 700;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: var(--color-text);
     text-decoration: none;
     white-space: nowrap;
@@ -168,9 +168,10 @@ function isActive(path: string, exact = false): boolean {
 
   .header__link {
     font-family: var(--font-display);
-    font-size: var(--text-base);
-    font-weight: 500;
-    color: var(--color-text);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    color: var(--color-muted);
     padding: var(--space-2) var(--space-4);
     text-decoration: none;
     transition: color 0.15s;
@@ -193,7 +194,7 @@ function isActive(path: string, exact = false): boolean {
     bottom: -1px;
     left: var(--space-4);
     right: var(--space-4);
-    height: 2px;
+    height: 3px;
     background: var(--color-accent);
   }
 
@@ -307,5 +308,6 @@ function isActive(path: string, exact = false): boolean {
     .header__backdrop {
       display: block;
     }
+
   }
 </style>

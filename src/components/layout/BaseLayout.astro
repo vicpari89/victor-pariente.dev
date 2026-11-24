@@ -23,6 +23,8 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
+// hreflang must match the canonical form (trailing slash)
+const alt = (l: 'es' | 'en') => new URL(switchLang(Astro.url, l).replace(/\/?$/, '/'), Astro.site);
 
 const isHome = /^\/(es|en)\/?$/.test(Astro.url.pathname);
 const siteName = 'Víctor Pariente';
@@ -62,18 +64,15 @@ const structuredData = jsonLd ?? defaultJsonLd;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    <link rel="alternate" hreflang="es" href={new URL(switchLang(Astro.url, 'es'), Astro.site)} />
-    <link rel="alternate" hreflang="en" href={new URL(switchLang(Astro.url, 'en'), Astro.site)} />
-    <link rel="alternate" hreflang="x-default" href={new URL(switchLang(Astro.url, 'en'), Astro.site)} />
+    <link rel="alternate" hreflang="es" href={alt('es')} />
+    <link rel="alternate" hreflang="en" href={alt('en')} />
+    <link rel="alternate" hreflang="x-default" href={alt('es')} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/source-sans-3-400.woff2" as="font" type="font/woff2" crossorigin />
     <title>{fullTitle}</title>
-
-    <!-- Fonts: preconnect + non-blocking stylesheet (replaces CSS @import) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" />
 
     <!-- Open Graph -->
     <meta property="og:type" content={isHome ? 'website' : 'profile'} />
