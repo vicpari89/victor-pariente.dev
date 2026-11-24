@@ -1,17 +1,19 @@
 ---
 import BaseLayout from '../../components/layout/BaseLayout.astro';
 import Hero from '../../components/home/Hero.astro';
+import ProjectBoxes from '../../components/home/ProjectBoxes.astro';
 import HomeNav from '../../components/home/HomeNav.astro';
 
 const lang = 'en';
 ---
 <BaseLayout
   title="Home"
-  description="Backend engineer with 10+ years of experience. Learning AI in public."
+  description="Backend software engineer with 10+ years of experience, at eDreams ODIGEO. Finishing a master’s in data science with a thesis on urban accessibility."
   lang={lang}
 >
   <div class="container">
     <Hero lang={lang} />
+    <ProjectBoxes lang={lang} />
+    <HomeNav lang={lang} />
   </div>
-  <HomeNav lang={lang} />
 </BaseLayout>

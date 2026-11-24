@@ -1,174 +1,67 @@
 ---
-import type { Lang } from '../../i18n/ui';
-import { useTranslations } from '../../i18n/utils';
 import { Image } from 'astro:assets';
 import avatar from '../../assets/avatar.jpg';
-
-interface Props {
-  lang: Lang;
-}
-
+import type { Lang } from '../../i18n/ui';
+interface Props { lang: Lang; }
 const { lang } = Astro.props;
-const t = useTranslations(lang);
-
-const greeting   = lang === 'es' ? 'Hola, soy Víctor Pariente,' : "Hi, I'm Víctor Pariente,";
-const role       = lang === 'es' ? 'Ingeniero de Software.' : 'Software Engineer.';
-const statusText = 'Senior Software Engineer · eDreams ODIGEO';
+const es = lang === 'es';
+const role = es ? 'Ingeniero de software backend' : 'Backend software engineer';
+const intro = es
+  ? 'Ingeniero backend con más de 10 años de experiencia. Ahora mismo en eDreams ODIGEO, finalizando un máster de ciencia de datos.'
+  : 'Backend engineer with 10+ years of experience. Currently at eDreams ODIGEO, finishing a master’s degree in data science.';
+const thesis = es
+  ? 'Máster en Ciencia de Datos (Universitat Oberta de Catalunya). Mi trabajo de fin de máster aplica machine learning a la accesibilidad urbana.'
+  : 'Master’s in Data Science (Universitat Oberta de Catalunya). My thesis applies machine learning to urban accessibility.';
+const tfm = es ? 'Trabajo de fin de máster: accesibilidad urbana' : 'Master’s thesis: urban accessibility';
 ---
 <section class="hero">
-  <div class="hero__text">
-    <h1 class="hero__headline">
-      <span class="hero__greeting">{greeting}</span>
-      <span class="hero__role">{role}</span>
-    </h1>
-
-    <div class="accent-rule" aria-hidden="true"></div>
-
-    <p class="hero__bio">{t('home.subtitle')}</p>
-
-    <div class="hero__status">
-      <span class="hero__status-dot" aria-hidden="true"></span>
-      <span>{statusText}</span>
-      <span class="hero__status-sep" aria-hidden="true">·</span>
-      <a href="https://linkedin.com/in/victor-pariente" target="_blank" rel="noopener noreferrer" class="hero__status-link">LinkedIn ↗</a>
-    </div>
+  <div class="hero__main">
+    <h1>Víctor<br />Pariente</h1>
+    <p class="hero__role">{role}</p>
+    <p class="hero__intro">{intro}</p>
+    <p class="hero__actions">
+      <a class="stamp stamp--primary" href={`/${lang}/${es ? 'proyectos' : 'projects'}`}>{tfm} →</a>
+      <a class="stamp" href="https://linkedin.com/in/victor-pariente" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+    </p>
   </div>
 
-  <div class="hero__visual">
-    <div class="hero__ellipse" aria-hidden="true"></div>
-    <Image class="hero__avatar" src={avatar} alt="Víctor Pariente" width={243} height={243} loading="eager" fetchpriority="high" />
-  </div>
+  <aside class="hero__note">
+    <Image src={avatar} alt={es ? 'Retrato de Víctor Pariente' : 'Portrait of Víctor Pariente'} width={600} height={600} class="hero__portrait" loading="eager" />
+    <p class="hero__status"><span class="dot" aria-hidden="true"></span>{es ? 'Ahora' : 'Now'}</p>
+    <p>{thesis}</p>
+  </aside>
 </section>
 
 <style>
   .hero {
     display: grid;
-    grid-template-columns: 1fr 270px;
-    align-items: center;
-    gap: var(--space-12);
-    padding: var(--space-20) 0 var(--space-16);
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: var(--space-10);
+    padding: var(--space-12) 0 var(--space-16);
+    margin-top: var(--space-8);
+    border-top: 5px solid var(--color-accent);
   }
-
-  /* ── Left column ── */
-  .hero__text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-6);
+  h1 { font-size: clamp(4rem, 11vw, 9rem); line-height: .85; letter-spacing: -.035em; }
+  .hero__role { margin-top: var(--space-6); font-family: var(--font-display); font-weight: 600; font-size: var(--text-2xl); text-transform: uppercase; letter-spacing: .02em; color: var(--color-accent-text); }
+  .hero__intro { margin-top: var(--space-4); font-size: var(--text-lg); line-height: 1.6; max-width: 52ch; }
+  .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-3); margin-top: var(--space-8); }
+  .stamp {
+    font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); letter-spacing: .08em; text-transform: uppercase;
+    padding: .35rem .55rem; border: 1px solid var(--color-text); color: var(--color-text); text-decoration: none;
+    transition: background .15s, color .15s, border-color .15s;
   }
-
-  .hero__headline {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    font-size: clamp(2rem, 4.5vw, 2.75rem);
-    font-weight: 900;
-    line-height: 1.15;
-    color: var(--color-text);
-    margin-bottom: 0;
-  }
-
-  .hero__greeting {
-    display: block;
-  }
-
-  .hero__role {
-    display: block;
-    color: var(--color-accent-text);
-  }
-
-  .hero__bio {
-    font-size: var(--text-base);
-    color: var(--color-muted);
-    line-height: 1.75;
-    max-width: 52ch;
-    margin-bottom: 0;
-  }
-
-  .hero__status {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    color: var(--color-muted);
-  }
-
-  .hero__status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--color-accent);
-    flex-shrink: 0;
-  }
-
-  .hero__status-sep {
-    opacity: 0.5;
-  }
-
-  .hero__status-link {
-    color: var(--color-link);
-    text-decoration: none;
-  }
-
-  .hero__status-link:hover {
-    text-decoration: underline;
-  }
-
-  /* ── Right column (avatar) ── */
-  .hero__visual {
-    position: relative;
-    width: 260px;
-    height: 260px;
-    flex-shrink: 0;
-    justify-self: center;
-  }
-
-  .hero__ellipse {
-    position: absolute;
-    width: 243px;
-    height: 243px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
-    opacity: 0.9;
-    bottom: 0;
-    right: 0;
-  }
-
-  .hero__avatar {
-    position: absolute;
-    width: 243px;
-    height: 243px;
-    border-radius: 50%;
-    background: var(--color-surface);
-    border: 3px solid var(--color-bg);
-    object-fit: cover;
-    top: 0;
-    left: 0;
-  }
-
-  /* ── Mobile ── */
-  @media (max-width: 680px) {
-    .hero {
-      grid-template-columns: 1fr;
-      padding: var(--space-12) 0 var(--space-10);
-      gap: var(--space-10);
-    }
-
-    .hero__visual {
-      order: -1;
-      width: 180px;
-      height: 192px;
-    }
-
-    .hero__ellipse {
-      width: 180px;
-      height: 180px;
-    }
-
-    .hero__avatar {
-      width: 180px;
-      height: 180px;
-      font-size: 3rem;
-    }
+  .stamp:hover { color: var(--color-bg); background: var(--color-text); }
+  .stamp--primary { background: var(--color-text); color: var(--color-bg); }
+  .stamp--primary:hover { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+  .hero__note { border-top: 1px solid var(--color-text); padding-top: var(--space-4); font-size: var(--text-sm); color: var(--color-muted); }
+  .hero__portrait { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--color-text);  }
+  .hero__status { display: flex; align-items: center; gap: var(--space-2); margin: var(--space-4) 0 var(--space-2); font-family: var(--font-display); font-weight: 700; font-size: var(--text-sm); letter-spacing: .1em; text-transform: uppercase; color: var(--color-text); }
+  .dot { width: 8px; height: 8px; background: var(--color-accent); }
+  @media (max-width: 800px) {
+    .hero { grid-template-columns: 1fr; gap: var(--space-8); }
+    .hero { padding-bottom: var(--space-10); }
+    .hero__note { display: grid; grid-template-columns: 96px minmax(0, 1fr); column-gap: var(--space-4); align-items: start; }
+    .hero__portrait { grid-row: 1 / span 2; }
+    .hero__status { margin-top: 0; }
   }
 </style>

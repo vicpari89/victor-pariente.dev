@@ -60,11 +60,11 @@ const events: TimelineEvent[] = lang === 'es' ? [
     description: 'Backend Java e integración de APIs para distintos clientes. Fui asumiendo análisis de sistemas, integración y soporte técnico para clientes corporativos.',
   },
   {
-    year: '2020 – 2022',
+    year: '2020 →',
     type: 'study',
     icon: '🎓',
     title: 'Universitat Oberta de Catalunya',
-    subtitle: 'Máster en Ciencia de Datos — pendiente del TFM',
+    subtitle: 'Máster en Ciencia de Datos — terminando el trabajo de fin de máster',
   },
   {
     year: '2023 – 2025',
@@ -123,11 +123,11 @@ const events: TimelineEvent[] = lang === 'es' ? [
     description: 'Backend Java and API integration for various clients. Gradually took on systems analysis and technical support for corporate clients.',
   },
   {
-    year: '2020 – 2022',
+    year: '2020 →',
     type: 'study',
     icon: '🎓',
     title: 'Universitat Oberta de Catalunya',
-    subtitle: 'Master\'s in Data Science — final thesis pending',
+    subtitle: 'Master\'s in Data Science — completing the final thesis',
   },
   {
     year: '2023 – 2025',
@@ -313,5 +313,45 @@ const displayed =
     font-size: var(--text-sm);
     line-height: 1.6;
     color: var(--color-text);
+  }
+
+  .timeline__track::before,
+  .tl__badge { display: none; }
+
+  .tl { padding-left: 0; margin-bottom: 0; border-top: 1px solid var(--color-border); }
+  .tl:first-child { border-top-color: var(--color-text); }
+  .tl:last-child { border-bottom: 1px solid var(--color-text); }
+
+  .tl__card,
+  .tl--work-current .tl__card {
+    display: grid;
+    grid-template-columns: 170px minmax(0, 1fr);
+    column-gap: var(--space-8);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: var(--space-6) 0;
+  }
+  .tl__card > :not(.tl__year) { grid-column: 2; }
+  .tl__year {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    font-size: var(--text-xl);
+    letter-spacing: .02em;
+  }
+  .tl--work-current .tl__year::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: var(--space-2);
+    background: var(--color-accent);
+  }
+  .tl__title { font-size: var(--text-2xl); text-transform: uppercase; line-height: 1; }
+  .tl__sub { margin-top: var(--space-1); }
+
+  @media (max-width: 640px) {
+    .tl__card, .tl--work-current .tl__card { grid-template-columns: 1fr; }
+    .tl__card > :not(.tl__year), .tl__year { grid-column: 1; grid-row: auto; }
   }
 </style>

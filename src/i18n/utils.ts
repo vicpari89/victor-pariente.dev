@@ -21,7 +21,6 @@ export function getLocalePath(lang: Lang, path: string): string {
 export const routes = {
   about:    { es: '/sobre-mi',    en: '/about' },
   now:      { es: '/ahora',       en: '/now' },
-  blog:     { es: '/blog',        en: '/blog' },
   projects: { es: '/proyectos',   en: '/projects' },
   contact:  { es: '/contacto',    en: '/contact' },
   legal:    { es: '/aviso-legal', en: '/legal-notice' },
